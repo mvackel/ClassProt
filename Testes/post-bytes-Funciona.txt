@@ -1,0 +1,7 @@
+PE`lEY/@d!Pa>P;n
+%3E%0A%20%20%20%20
+%3CqueryId%3EFFE58E6C%3C%2FqueryId
+%3E%0A%20%20%20%20%3CresultCount%3E37810%3C%2FresultCount%
+3E%0A%20%20%20%20%3CruntimeStart%3E2017-11-19T00%3A12%3A23Z%3C%2FruntimeStart%3E%0A%20%20%20%20%3CruntimeMilliseconds%3E427%3C%2FruntimeMilliseconds%3E%0A%20%20%20%20%3Ct%3E1%3C%2Ft%3E%0A%20%20%20%20%3Cn%3E%2B9606%3C%2Fn%3E%0A%20%20%20%20%3CnodeDesc%3EExpression%20using%20Homo%20sapiens%20(human)%3C%2FnodeDesc%3E%0A%20%20%3C%2ForgPdbQuery%3E%0A%20%3C%2FqueryRefinement%3E%0A%20%3CqueryRefinement%3E%0A%20%20%3CqueryRefinementLevel%3E1%3C%2FqueryRefinementLevel%3E%0A%20%20%3CconjunctionType%3Eand%3C%2FconjunctionType%3E%0A%20%20%3CorgPdbQuery%3E%0A%20%20%20%20%3Cversion%3Ehead%3C%2Fversion%3E%0A%20%20%20%20%3CqueryType%3Eorg.pdb.query.simple.EnzymeClassificationQuery%3C%2FqueryType%3E%0A%20%20%20%20%3Cdescription%3EEnzyme%20Classification%20Search%20%3A%20EC%3D6.5.*%3C%2Fdescription%3E%0A%20%20%20%20%3CqueryId%3EB0F548BF%3C%2FqueryId%3E%0A%20%20%20%20%3CresultCount%3E102%3C%2FresultCount%3E%0A%20%20%20%20%3CruntimeStart%3E2017-11-19T00%3A12%3A24Z%3C%2FruntimeStart%3E%0A%20%20%20%20%3CruntimeMilliseconds%3E3%3C%2FruntimeMilliseconds%3E%0A%20%20%20%20
+%3CEnzyme_Classification%3E6.5.*%3C%2FEnzyme_Classification%3E%0A%20%20
+%3C%2ForgPdbQuery%3E%0A%20%3C%2FqueryRefinement%3E%0A%3C%2ForgPdbCompositeQuery%3E%0A

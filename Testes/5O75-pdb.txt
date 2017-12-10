@@ -1,0 +1,32 @@
+HEADER    LIGASE                                  08-JUN-17   5O75              
+TITLE     UBE4B U-BOX DOMAIN                                                    
+COMPND    MOL_ID: 1;                                                            
+COMPND   2 MOLECULE: UBIQUITIN CONJUGATION FACTOR E4 B;                         
+COMPND   3 CHAIN: A;                                                            
+COMPND   4 SYNONYM: HOMOZYGOUSLY DELETED IN NEUROBLASTOMA 1,RING-TYPE E3        
+COMPND   5 UBIQUITIN TRANSFERASE E4 B,UBIQUITIN FUSION DEGRADATION PROTEIN 2;   
+COMPND   6 EC: 2.3.2.27;                                                        
+COMPND   7 ENGINEERED: YES                                                      
+SOURCE    MOL_ID: 1;                                                            
+SOURCE   2 ORGANISM_SCIENTIFIC: HOMO SAPIENS;                                   
+SOURCE   3 ORGANISM_COMMON: HUMAN;                                              
+SOURCE   4 ORGANISM_TAXID: 9606;                                                
+SOURCE   5 GENE: UBE4B, HDNB1, KIAA0684, UFD2;                                  
+SOURCE   6 EXPRESSION_SYSTEM: ESCHERICHIA COLI;                                 
+SOURCE   7 EXPRESSION_SYSTEM_TAXID: 562;                                        
+SOURCE   8 EXPRESSION_SYSTEM_STRAIN: BL21 DE3;                                  
+SOURCE   9 EXPRESSION_SYSTEM_VECTOR_TYPE: PLASMID;                              
+SOURCE  10 EXPRESSION_SYSTEM_PLASMID: PGEX4T.1                                  
+KEYWDS    E3 U-BOX, UBIQUITIN TRANSFER, LIGASE                                  
+EXPDTA    X-RAY DIFFRACTION                                                     
+AUTHOR    M.GABRIELSEN,L.BUETOW,M.A.NAKASONE,D.T.HUANG                          
+REVDAT   1   01-NOV-17 5O75    0                                                
+JRNL        AUTH   M.GABRIELSEN,L.BUETOW,M.A.NAKASONE,S.F.AHMED,G.J.SIBBET,     
+JRNL        AUTH 2 B.O.SMITH,W.ZHANG,S.S.SIDHU,D.T.HUANG                        
+JRNL        TITL   A GENERAL STRATEGY FOR DISCOVERY OF INHIBITORS AND           
+JRNL        TITL 2 ACTIVATORS OF RING AND U-BOX E3 LIGASES WITH UBIQUITIN       
+JRNL        TITL 3 VARIANTS.                                                    
+JRNL        REF    MOL. CELL                     V.  68   456 2017              
+JRNL        REFN                   ISSN 1097-4164                               
+JRNL        PMID   29053960                                                     
+JRNL        DOI    10.1016/J.MOLCEL.2017.09.027                                 

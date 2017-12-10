@@ -1,0 +1,33 @@
+HEADER    TRANSFERASE                             24-AUG-12   4GRA              
+TITLE     CRYSTAL STRUCTURE OF SULT1A1 BOUND WITH PAP                           
+COMPND    MOL_ID: 1;                                                            
+COMPND   2 MOLECULE: SULFOTRANSFERASE 1A1;                                      
+COMPND   3 CHAIN: A, B;                                                         
+COMPND   4 SYNONYM: ST1A1, ARYL SULFOTRANSFERASE 1, HAST1/HAST2, PHENOL         
+COMPND   5 SULFOTRANSFERASE 1, PHENOL-SULFATING PHENOL SULFOTRANSFERASE 1, P-PST
+COMPND   6 1, ST1A3, THERMOSTABLE PHENOL SULFOTRANSFERASE, TS-PST;              
+COMPND   7 EC: 2.8.2.1;                                                         
+COMPND   8 ENGINEERED: YES                                                      
+SOURCE    MOL_ID: 1;                                                            
+SOURCE   2 ORGANISM_SCIENTIFIC: HOMO SAPIENS;                                   
+SOURCE   3 ORGANISM_COMMON: HUMAN;                                              
+SOURCE   4 ORGANISM_TAXID: 9606;                                                
+SOURCE   5 GENE: SULT1A1, STP, STP1, OK/SW-CL.88;                               
+SOURCE   6 EXPRESSION_SYSTEM: ESCHERICHIA COLI;                                 
+SOURCE   7 EXPRESSION_SYSTEM_TAXID: 562;                                        
+SOURCE   8 EXPRESSION_SYSTEM_VECTOR_TYPE: PLASMID;                              
+SOURCE   9 EXPRESSION_SYSTEM_PLASMID: PGEX                                      
+KEYWDS    SULFOTRANSFERASE, ESTRADIOL, HORMONE REGULATION, TRANSFERASE          
+EXPDTA    X-RAY DIFFRACTION                                                     
+AUTHOR    J.KIM,I.COOK,T.WANG,C.N.FALANY,T.S.LEYH,S.C.ALMO                      
+REVDAT   3   13-FEB-13 4GRA    1       JRNL                                     
+REVDAT   2   23-JAN-13 4GRA    1       JRNL                                     
+REVDAT   1   16-JAN-13 4GRA    0                                                
+JRNL        AUTH   I.COOK,T.WANG,S.C.ALMO,J.KIM,C.N.FALANY,T.S.LEYH             
+JRNL        TITL   THE GATE THAT GOVERNS SULFOTRANSFERASE SELECTIVITY.          
+JRNL        REF    BIOCHEMISTRY                  V.  52   415 2013              
+JRNL        REFN                   ISSN 0006-2960                               
+JRNL        PMID   23256751                                                     
+JRNL        DOI    10.1021/BI301492J                                            
+REMARK   2                                                                      
+R

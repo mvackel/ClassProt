@@ -1,0 +1,44 @@
+NEO4J
+
+PARA DELETAR TUDO:
+----------------------
+match (n) detach delete (n)
+----------------------
+
+CALL dbms.procedures()
+CALL apoc.help("Gephi")
+
+MATCH (N:CAlpha) RETURN count(N)
+
+PROFILE MATCH (c)-[n:NEAR_10A]->() WHERE n.Dist <= 11 and c.IdPDB="4GRA" RETURN c,n
+
+MATCH (c)-[n:NEAR_10A]->() WHERE n.Dist <= 11 and c.IdPDB="4GRA" RETURN c,n
+
+PROFILE 
+MATCH (c:CAlpha {IdPDB:"4GRA"})-[n:NEAR_10A]->() WHERE n.Dist <= 11 RETURN c,n
+
+PROFILE
+MATCH (c:CAlpha {IdPDB:"4GRA"})-[r:NEAR_10A]-() WHERE r.Dist<=5  RETURN c
+
+
+MATCH path=(c:CAlpha {IdPDB:"4GRA"})-[r:NEAR_10A]-() WHERE r.Dist<=5  with collect(path) as paths call apoc.gephi.add(null,'workspace1',paths) yield nodes, relationships, time return nodes, relationships, time
+
+match path = (n)--()
+with collect(path) as paths
+call apoc.gephi.add(null, "workspace1",paths) yield nodes, relationships, time
+return nodes, relationships, time
+
+
+IT WORKS: (streaming para o Gephi):
+-------------------
+match path=(c:CAlpha {IdPDB:"4GRA"})-[r:NEAR_10A]-() WHERE r.Dist<=5
+with collect(path) as paths
+call apoc.gephi.add(null, "workspace1",paths) yield nodes, relationships, time
+return nodes, relationships, time
+-------------------
+
+
+
+match path=(c:CAlpha {IdPDB:"5O75"})-[r:NEAR_10A]-(d) WHERE r.Dist<=4
+return c,r,d
+

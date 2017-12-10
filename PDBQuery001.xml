@@ -1,0 +1,33 @@
+<orgPdbCompositeQuery version="1.0">
+    <resultCount>37810</resultCount>
+    <queryId>2A1D936F</queryId>
+ <queryRefinement>
+  <queryRefinementLevel>0</queryRefinementLevel>
+  <orgPdbQuery>
+    <version>head</version>
+    <queryType>org.pdb.query.simple.TreeQueryExpression</queryType>
+    <description>TAXONOMY is just Homo sapiens (human)</description>
+    <queryId>FFE58E6C</queryId>
+    <resultCount>37810</resultCount>
+    <runtimeStart>2017-11-19T00:12:23Z</runtimeStart>
+    <runtimeMilliseconds>427</runtimeMilliseconds>
+    <t>1</t>
+    <n>+9606</n>
+    <nodeDesc>Expression using Homo sapiens (human)</nodeDesc>
+  </orgPdbQuery>
+ </queryRefinement>
+ <queryRefinement>
+  <queryRefinementLevel>1</queryRefinementLevel>
+  <conjunctionType>and</conjunctionType>
+  <orgPdbQuery>
+    <version>head</version>
+    <queryType>org.pdb.query.simple.EnzymeClassificationQuery</queryType>
+    <description>Enzyme Classification Search : EC=6.5.*</description>
+    <queryId>B0F548BF</queryId>
+    <resultCount>102</resultCount>
+    <runtimeStart>2017-11-19T00:12:24Z</runtimeStart>
+    <runtimeMilliseconds>3</runtimeMilliseconds>
+    <Enzyme_Classification>6.5.*</Enzyme_Classification>
+  </orgPdbQuery>
+ </queryRefinement>
+</orgPdbCompositeQuery>

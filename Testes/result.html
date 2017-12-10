@@ -1,0 +1,1274 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <link rel="alternate" type="application/rss+xml" title="RCSB PDB - Latest Released Structures" href="/pdb/rss/LastLoad"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>RCSB PDB - REST Web Service 
+
+
+
+
+
+
+
+
+
+
+</title>
+    
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="max-age=3600">
+<meta http-equiv="Cache-Control" content="private">
+<meta http-equiv="Cache-Control" content="must-revalidate">
+<meta http-equiv="Pragma" content="private">
+
+
+<meta name="description" content="The PDB archive contains information about experimentally-determined structures of proteins, nucleic acids, and complex assemblies. As a member of the wwPDB, the RCSB PDB curates and annotates PDB data according to agreed upon standards. The RCSB PDB also provides a variety of tools and resources. Users can perform simple and advanced searches based on annotations relating to sequence, structure and function. These molecules are visualized, downloaded, and analyzed by users who range from students to specialized scientists."/>
+
+<link rel="image_src" href="http://www.rcsb.org/pdb/skins/web20/default/images/pdblogo.gif"/>
+
+<meta name="author" content="RCSB Protein Data Bank"/>
+<meta name="citation_author" content="RCSB Protein Data Bank"/>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- will put in the real article DOI once we have DOI column in mv_structure -->
+<meta name="citation_doi" content=""/>
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="email" content="info@rcsb.org"/>
+<meta name="Charset" content="UTF-8"/>
+<meta name="Distribution" content="Global"/>
+<meta name="Rating" content="General"/>
+<meta http-equiv="content-language" content="en-US"/>
+    <link rel="shortcut icon" href="/pdb/img/pdb.ico" type="image/x-icon"/>
+    <link rel="search" type="application/opensearchdescription+xml" title="RCSB Full Text or PDB ID Search " href="/pdb/rcsb_pdb_keywordIDSearch.xml"/>
+    <link rel="search" type="application/opensearchdescription+xml" title="RCSB Author Search" href="/pdb/rcsb_pdb_authorSearch.xml"/>
+    
+
+    
+
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "stats.g.doubleclick.net/dc.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    if (typeof _gat != 'undefined') {
+        var pageTracker = _gat._getTracker("UA-3923365-3");
+        pageTracker._initData();
+        pageTracker._trackPageview();
+        _gat._anonymizeIp();
+    } else {
+        // Create a dummy Google Analytics script that prevents JavaScript error messages.
+        var pageTracker = {
+            _addIgnoredOrganic: function (newIgnoredOrganicKeyword) {},
+            _addIgnoredRef: function (newIgnoredReferrer) {},
+            _addItem: function (orderId, sku, name, category, price, quantity) {},
+            _addOrganic: function (newOrganicEngine, newOrganicKeyword, opt_prepend) {},
+            _addTrans: function (orderId, affiliation, total, tax, shipping, city, state, country) {},
+            _clearIgnoredOrganic: function () {},
+            _clearIgnoredRef: function () {},
+            _clearOrganic: function () {},
+            _cookiePathCopy: function (newPath) {},
+            _deleteCustomVar: function (index) {},
+            _getName: function () {},
+            _setAccount: function () {},
+            _getAccount: function () {},
+            _getClientInfo: function (a) {},
+            _getDetectFlash: function (a) {},
+            _getDetectTitle: function (a) {},
+            _getLinkerUrl: function (targetUrl, useHash) {},
+            _getLocalGifPath: function () {},
+            _getServiceMode: function () {},
+            _getVersion: function () {},
+            _getVisitorCustomVar: function (index) {},
+            _link: function (targetUrl, useHash) {},
+            _linkByPost: function (formObject, useHash) {},
+            _setAllowAnchor: function (bool) {},
+            _setAllowHash: function (bool) {},
+            _setAllowLinker: function (bool) {},
+            _setCampContentKey: function (newCampContentKey) {},
+            _setCampMediumKey: function (newCampMedKey) {},
+            _setCampNameKey: function (newCampNameKey) {},
+            _setCampNOKey: function (newCampNOKey) {},
+            _setCampSourceKey: function (newCampSrcKey) {},
+            _setCampTermKey: function (newCampTermKey) {},
+            _setCampaignCookieTimeout: function (cookieTimeoutMillis) {},
+            _setCampaignTrack: function (bool) {},
+            _setClientInfo: function (bool) {},
+            _setCookiePath: function (newCookiePath) {},
+            _setCustomVar: function (index, name, value, opt_scope) {},
+            _setDetectFlash: function (bool) {},
+            _setDetectTitle: function (bool) {},
+            _setDomainName: function (newDomainName) {},
+            _setLocalGifPath: function (newLocalGifPath) {},
+            _setLocalRemoteServerMode: function () {},
+            _setLocalServerMode: function () {},
+            _setReferrerOverride: function (newReferrerUrl) {},
+            _setRemoteServerMode: function () {},
+            _setSampleRate: function (newRate) {},
+            _setSessionCookieTimeout: function (cookieTimeoutMillis) {},
+            _setVisitorCookieTimeout: function (cookieTimeoutMillis) {},
+            _trackEvent: function (category, action, opt_label, opt_value) {},
+            _trackPageview: function (opt_pageURL) {},
+            _trackTrans: function () {}
+        };
+    }
+</script>
+
+
+    <!-- Include the latest JQuery (we support) from our CDN -->
+<script type="text/javascript" src="https://cdn.rcsb.org/javascript/jquery/jquery-latest.min.js"></script>
+<!-- Include the latest Bootstrap (we support) from our CDN -->
+<script type="text/javascript" src="https://cdn.rcsb.org/javascript/bootstrap/latest/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="https://cdn.rcsb.org/javascript/bootstrap/latest/css/bootstrap.min.css"/>
+<!-- Include any other core 3rd party libraries from our CDN -->
+<link rel="stylesheet" href="https://cdn.rcsb.org/javascript/fontawesome/latest/css/font-awesome.min.css"/>
+<!-- Jira Feedback from our CDN -->
+<script type="text/javascript" src="https://cdn.rcsb.org/jira-feedback/js/jira-fdbck.min.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="https://cdn.rcsb.org/jira-feedback/css/jira-fdbck.css" />
+     
+    <!-- WRO Includes -->
+    
+    <link rel="stylesheet" type="text/css" media="all" href="/pdb/assets/wro/global_v2_bootstrap-select.css?ver=1510619931220"/>
+    <script type="text/javascript" src="/pdb/assets/wro/global_v2_bootstrap-select.js?ver=1510619931220"></script>
+</head>
+<body>
+<!-- Top Navigation Bar -->
+<nav id="nav" class="navbar navbar-inverse navbar-fixed-top hidden-print" role="navigation">
+    <div id="UnsupportedBrowser"
+         style="width: 100%; border-bottom: 2px solid #FFA500; background-color: #FFFFFF; color: #000000; display: inline-block; font-size: .9em; line-height: 2em; text-align: center; font-weight: bold; font-style: italic;"
+         class="hide hidden-print">
+        <span class="label label-warning" style="font-size: 100%;">Warning</span>
+        You are using a web browser that we do not support. Our website will not work properly. Please update to a newer version or download a new web browser, such as Chrome or Firefox.
+    </div>
+    
+
+    <div class="container">
+        <!-- MyPDB Login - Separated from Navigation -->
+        <div id="mypdb_loginMenu" class="pull-right myPDBLogin_Area">
+            <!-- Split button -->
+            <div class="btn-group">
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myPDBLogin">MyPDB<span
+                        class="hidden-xs"> Login</span></button>
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="/pdb/mypdb/signup.do">Need a new MyPDB account?</a></li>
+                    <li><a href="/pdb/mypdb/forgotPassword.do">Forgot login or password?</a></li>
+                    <li><a href="/pdb/static.do?p=help/mypdb.html">Need more MyPDB instructions?</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mypdb_userMenu" class="pull-right myPDBLogin_Area">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> Welcome
+                    <span id="mypdb_userVal"></span>!
+                </button>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="/pdb/mypdb/queryManager.do" title="Show MyPDB">Saved Query Manager</a></li>
+                    <li><a href="/pdb/mypdb/updateUser.do" title="User Account Details">User Account</a></li>
+                    <div id="mypdb_adminMenu">
+                        <li class="divider"></li>
+                        <li><a href="/pdb/mypdb/showUsers.do">Users</a></li>
+                        <li><a href="/pdb/mypdb/myPdbGroupMgr.do">Groups</a></li>
+                        <li><a href="/pdb/admin/viewStatus.do">Status</a></li>
+                        <li><a href="/pdb/admin/PropertiesView.do">Properties</a></li>
+                        <li><a href="/pdb/admin/viewSessions.do">Sessions</a></li>
+                        <li><a href="/pdb/admin/LoadersView.do">Loaders</a></li>
+                        <li><a href="/pdb/admin/runUpdate.do">Update</a></li>
+                        <li><a href="/pdb/admin/viewLoadResults.do">Load Results</a></li>
+                        <li><a href="/pdb/admin/runUtils.do">Structure Utilities</a></li>
+                        <li><a href="/pdb/admin/reconcile.do">Reconcile</a></li>
+                    </div>
+                    <li class="divider"></li>
+                    <li><a id="lhm_mypdb_logoff" href="/pdb/Logoff.do" title="Logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle pull-left" data-toggle="collapse"
+                    data-target="#navbar-collapse-RCSB">
+                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand"
+               href="/pdb/home/home.do">RCSB PDB</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-RCSB">
+            <ul class="nav navbar-nav pull-left">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Deposit <b class="caret"></b></a>
+
+                    <div class="dropdown-menu multi-column" id="DepositDropdownNav">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-2 col-md-2">
+                                <ul class="dropdown-menu">
+                                    <li><h4>Prepare Data</h4></li>
+                                    <li><a href="http://pdb-extract.wwpdb.org/" target="_blank">pdb_extract</a></li>
+                                    <li><a href="http://sf-tool.wwpdb.org/" target="_blank">SF-Tool</a></li>
+                                    <li><a href="http://ligand-expo.rcsb.org/" target="_blank">Ligand Expo</a></li>
+                                    <li><a href="http://sw-tools.rcsb.org/apps/MAXIT/index.html"
+                                           target="_blank">MAXIT</a>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                                <ul class="dropdown-menu">
+                                    <li><h4>Validate Data</h4></li>
+                                    <li>
+                                        <a href="https://validate-rcsb.wwpdb.org"
+                                           target="_blank">Validation Server</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://www.wwpdb.org/documentation/journals.php" target="_blank">
+                                            Information for Journals
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://www.wwpdb.org/task/validation-task-forces.php" target="_blank">
+                                            Validation Task Forces
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-md-2">
+                                <ul class="dropdown-menu">
+                                    <li><h4>Deposit Data</h4></li>
+                                    <li><a href="http://deposit.wwpdb.org/" target="_blank">wwPDB OneDep System</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-2 col-md-3">
+                                <ul class="dropdown-menu">
+                                    <li><h4>Deposition Help & Resources</h4></li>
+                                    <li><a href="http://www.wwpdb.org/deposition/faq.php" target="_blank">Deposit
+                                                                                                          FAQ</a></li>
+                                    <li><a href="http://www.wwpdb.org/deposition/tutorial.php"
+                                           target="_blank">Tutorials</a></li>
+                                    <li><a href="http://www.wwpdb.org/documentation/procedure.php" target="_blank">Annotation
+                                                                                                                   Policies</a>
+                                    </li>
+                                    <li><a href="http://www.wwpdb.org/documentation/policy.php" target="_blank">Processing
+                                                                                                                Procedures</a>
+                                    </li>
+                                    <li class="divider hidden-xs"></li>
+                                    <li><a href="http://mmcif.wwpdb.org/" target="_blank">PDBx/mmCIF Dictionary</a></li>
+                                    <li><a href="http://wwpdb.org/data/ccd" target="_blank">Chemical Component Dictionary</a></li>
+                                    <li><a href="http://www.wwpdb.org/documentation/file-format.php" target="_blank">PDB
+                                                                                                                     Format
+                                                                                                                     Guide</a>
+                                    </li>
+                                    <li><a href="http://biosync.sbkb.org/" target="_blank">BioSync
+                                                                                           Beamlines/Facilities</a></li>
+                                    <li><a href="http://sw-tools.rcsb.org/" target="_blank">Related Tools</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/search.jsp#search_advanced-search">Advanced
+                                                                                                         Search</a></li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/search.jsp#search_drilldown">Drilldown Search</a>
+                        </li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/search.jsp#search_unreleased-and-new">Unreleased &
+                                                                                                            New
+                                                                                                            Entries</a>
+                        </li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/search.jsp#search_sequences">Sequences</a></li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/search.jsp#search_ligands">Ligands</a></li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/search.jsp#search_drugs">Drugs & Drug Targets</a>
+                        </li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/search.jsp#search_annotation">Browse by
+                                                                                                    Annotation</a></li>
+                        <li><a href="/pdb/static.do?p=general_information/pdb_statistics/index.html">PDB Statistics</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Visualize <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/visualize.jsp#visualize_ngl">NGL</a></li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/visualize.jsp#visualize_jmol">Jmol</a></li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/visualize.jsp#visualize_rcsb-viewer">RCSB PDB
+                                                                                                           Viewers</a>
+                        </li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/visualize.jsp#visualize_ligands">Ligand
+                                                                                                       Explorer</a></li>
+                        <li>
+                            <a href="/pdb/secondary.do?p=v2/secondary/visualize.jsp#visualize_ligands-poseview">PoseView</a>
+                        </li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/visualize.jsp#visualize_seq-proteinfeatures">Protein
+                                                                                                                   Feature
+                                                                                                                   View</a>
+                        </li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/visualize.jsp#visualize_seq-genome">Human Gene
+                                                                                                          View</a></li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/visualize.jsp#visualize_pathway">Pathway View</a></li>
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Analyze <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/analyze.jsp#Sequence">Sequence & Structure
+                                                                                            Alignment</a></li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/analyze.jsp#Symmetry">Protein Symmetry</a></li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/analyze.jsp#Quality">Structure Quality</a></li>
+                        <li><a href="/pdb/chromosome.do">Map Genomic Position to Protein</a></li>
+
+                        <li><a href="/pdb/static.do?p=general_information/pdb_statistics/index.html">PDB Statistics</a>
+                        <li class="divider hidden-xs"></li>
+                        <li><a href="/pdb/static.do?p=general_information/web_links/index.html">Third Party Tools</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown hidden-xs hidden-sm">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Download <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pdb/download/download.do#Structures">Coordinates & Experimental Data</a></li>
+                        <li><a href="/pdb/download/download.do#FASTA">Sequences</a></li>
+                        <li><a href="/pdb/download/download.do#Ligands">Ligands</a></li>
+                        <li><a href="/pdb/static.do?p=download/ftp/index.html">FTP Archive & Services</a></li>
+                        <li><a href="/pdb/static.do?p=download/http/index.html">HTTPS Services</a></li>
+                        <li><a href="/pdb/secondary.do?p=v2/secondary/other_download.jsp">Other Services</a></li>
+                        <li><a href="/pdb/software/rest.do">RESTful Web Services</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Learn <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><h4>
+                            <a href="http://pdb101.rcsb.org" target="_blank"><img src="//cdn.rcsb.org/rcsb-pdb/v2/common/images/pdb101Logo.png" class="image_submenu"></a>
+                        </h4></li>
+                        <li><a href="http://pdb101.rcsb.org/more/about-pdb-101" target="_blank">About</a></li>
+                        <li><a href="http://pdb101.rcsb.org/motm/motm-by-title" target="_blank">Molecule of the Month</a></li>
+                        <li><a href="http://pdb101.rcsb.org/browse" target="_blank">Browse all Resources</a></li>
+                        <li><a href="http://pdb101.rcsb.org/learn/resources/paper_models" target="_blank">Educational Resources</a></li>
+                        <li><a href="http://pdb101.rcsb.org/teach/overview" target="_blank">Curricula</a></li>
+                        <li><a href="http://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data" target="_blank">Guide to PDB Data</a></li>
+                        <li><a href="http://pdb101.rcsb.org/news" target="_blank">News and Events</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/pdb/home/contactUs.do">Contact Us</a></li>
+                        <li>
+                            <a href="/pdb/static.do?p=general_information/about_pdb/policies_references.html#References">Citing
+                                                                                                                         Us</a>
+                        </li>
+                        <li>
+                            <a href="/pdb/static.do?p=general_information/about_pdb/policies_references.html">Usage &
+                                                                                                              Privacy</a>
+                        </li>
+                        <li><a href="/pdb/staticHelp.do?p=help/index.html">Help Topics</a></li>
+                        <li><a href="/pdb/static.do?p=general_information/about_pdb/index.html">About RCSB PDB</a></li>
+                        <li><a href="/pdb/static.do?p=general_information/about_pdb/contact/pdb_members.html">Team
+                                                                                                              Members</a>
+                        </li>
+                        <li><a href="/pdb/static.do?p=general_information/about_pdb/pdbac.html">Advisory Committee</a>
+                        </li>
+                        <li><a href="/pdb/static.do?p=general_information/news_publications/index.jsp">News</a></li>
+                        <li>
+                            <a href="/pdb/static.do?p=general_information/news_publications/articles/index.html">Publications</a>
+                        </li>
+                        <li>
+                            <a href="/pdb/static.do?p=general_information/about_pdb/contact/job_listings.html">Careers</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- /.navbar-nav -->
+        </div>
+        <!-- /.navbar-collapse --><!-- /.container -->
+</nav>
+<!-- Modal for MyPDB Login -->
+<div class="modal fade" id="myPDBLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">MyPDB Login</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/pdb/admin/Logon.do" onsubmit="return true;" name="Logon" id="lhm_mypdb_Logon" role="form">
+                    <div class="form-group">
+                        <label for="lhm_mypdb_username">User Name</label>
+                        <input type="text" class="form-control" id="lhm_mypdb_username" name="username" placeholder="Enter myPDB User Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lhm_mypdb_password">Password</label>
+                        <input type="password" class="form-control" id="lhm_mypdb_password" name="password" placeholder="Password">
+                    </div>
+
+                    <input type="hidden" id="lhm_mypdb_previousRequestUrl" value="" name="previousRequestUrl" />
+                    <button type="submit" value="Login" name="method" class="btn btn-primary"/>Submit</button>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Keep Search Bar functional. Will transfer to 'Header' tiles -->
+
+
+
+<div id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-5 hidden-xs" id="logo_container">
+                <a href="/pdb/home/home.do"><img src="//cdn.rcsb.org/rcsb-pdb/v2/common/images/rcsb_logo.png" id="rcsblogo" alt="RCSB PDB"></a>
+                <h2 id="tagline">
+                    <a id="CurrentStructureCount" href="/pdb/search/smartSubquery.do?experimentalMethod=ignore&amp;smartSearchSubtype=HoldingsQuery&amp;moleculeType=ignore">135201
+                    </a> Biological Macromolecular Structures Enabling Breakthroughs in Research and Education</h2>
+
+                <div class="clearfix"></div>
+            </div>
+            <!-- Search Bar -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7 hidden-print" id="search_container">
+                <form action="/pdb/search/navbarsearch.do" method="get" name="headerQueryForm" autocomplete="off" role="search" class="form-inline" id="headerQueryForm">
+                    <input type="hidden" name="f" id="fixeditem"/>
+                    <!-- Input Field -->
+                    <input type="text" class="form-control" name="q" id="autosearch_SearchBar" autocomplete="off" value="" placeholder="Search by PDB ID, author, macromolecule, sequence, or ligands">
+                    <!-- Submission -->
+                    <button type="submit" class="btn btn-default" id="searchbutton">Go</button>
+                </form>
+
+                <span class="quicklinks">
+                    <a href="/pdb/search/advSearch.do?search=new">Advanced<span class="hidden-xs"> Search</span></a> |
+                    <a href="/pdb/browse/jbrowse.do?t=4&amp;useMenu=no">Browse <span class="hidden-xs">by Annotations</span></a>
+                    <span id="SearchBarHistory" class="hide"> | <a href="/pdb/queries/queries.do"><span class="hidden-xs">Search </span>History<span id="SearchBarHistoryCount" class="queryCountValSpan"></span></a></span>
+                    <span id="SearchBarPreviousResults" class="hide"> | <a href="/pdb/results/results.do?startAt=0"><span class="hidden-xs">Previous </span>Results<span id="SearchBarPreviousResultsCount" class="queryResultCountValSpan"></span></a></span>
+                </span>
+            </div>
+        </div>
+        <ul id="PDBmembers" class="hidden-xs hidden-print">
+            <li>
+                <a href="http://pdb101.rcsb.org/"><img src="//cdn.rcsb.org/rcsb-pdb/v2/common/images/pdb101Logo.png" alt="PDB-101" id="pdb101logo"></a>
+            </li>
+            <li>
+                <a href="http://www.wwpdb.org/" target="_blank"><img src="//cdn.rcsb.org/rcsb-pdb/v2/common/images/Logo_wwpdb.png" alt="wwPDB" id="wwpdblogo"></a>
+            </li>
+            <li>
+                <a href="http://www.emdatabank.org/" target="_blank"><img src="//cdn.rcsb.org/rcsb-pdb/v2/common/images/Logo_EMDatabank.png" alt="EMDataBank" id="emdatabanklogo"></a>
+            </li>
+            <li>
+                <a href="http://ndbserver.rutgers.edu/" target="_blank"><img src="//cdn.rcsb.org/rcsb-pdb/v2/common/images/Logo_NDB.png" alt="NDB Nucleic Acid Database" id="ndblogo"></a>
+            </li>
+            <li>
+                <a href="http://foundation.wwpdb.org/" target="_blank"><img src="//cdn.rcsb.org/rcsb-pdb/v2/common/images/Logo_wwPDBFoundation.png" alt="wwPDB Foundation" id="wwpdbfoundationlogo"></a>
+            </li>
+
+        </ul>
+        <ul id="socialmedia_section" class="fa-ul hidden-xs hidden-print">
+            <li>
+                <a href="https://www.facebook.com/RCSBPDB" target="_blank" title="Facebook" data-placement="top" data-toggle="tooltip"><i class="fa fa-facebook-square fa-lg"></i></a>
+            </li>
+            <li>
+                <a href="https://twitter.com/buildmodels" target="_blank" title="Twitter" data-placement="top" data-toggle="tooltip"><i class="fa fa-twitter fa-lg"></i></a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/user/RCSBProteinDataBank" target="_blank" title="YouTube" data-placement="top" data-toggle="tooltip"><i class="fa fa-youtube-play fa-lg"></i></a>
+            </li>
+            <li>
+                <a href="https://github.com/rcsb" target="_blank" title="Github" data-placement="top" data-toggle="tooltip"><i class="fa fa-github fa-lg"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container" id="maincontentcontainer">
+       
+    
+
+
+
+
+
+<h1>The RCSB PDB RESTful Web Service interface</h1>
+<p>The RCSB PDB supports RESTful (REpresentational State Transfer) Web Services to make accessing data easier.
+Please use these services instead of screen-scraping. </p>
+<p>
+Generally we are trying to implement two types of services for our RESTful interface:
+</p>
+<ul>
+<li><b>Search services</b>: to return a list of IDs (e.g., PDB IDs, chain IDs, ligand IDs)</li>
+<li><b>Fetch services</b>: to return data given a ID (e.g. reports, descriptions, data items)</li>
+</ul>
+
+<hr/>
+
+<p>The services below are currently provided; please <a href="/pdb/home/contactUs.do">let us know</a> if you have additional suggestions.</p>
+
+
+
+
+
+
+<h3>SEARCH services</h3>
+
+<ul>
+	<li>A generic <a href="#search">SEARCH service</a> allowing to POST advanced queries</li>
+	<li>Search for ligands and PDB IDs based on a <a href="#smiles">SMILES query</a></li>
+</ul>
+
+<div class="well">
+	<p><b>About SEARCH services results</b></p>
+	<p>We have more than 80 query options in the advanced search system.
+		All the advanced queries can be done by posting the relevant XML query representation to the search services.
+		The queries can be categorized to four types based on the query results.</p>
+	<ul>
+		<li>Structure-based queries return a list of PDB IDs. Some examples are Author Name query, Macromolecule Type query, etc.</li>
+		<li>Entity-based queries return a list of PDB IDs appended with entity IDs in the format of pdbid:entityid,...,pdbidn:entityidn. Some examples are Sequence BLAST query, Wild Type Protein query, etc.</li>
+		<li>Chain-based query, e.g. Chain ID query. The query result is in the format pdbid:chainid,...,pdbidn:chainidn. It is useful for generating report on the specific chains.</li>
+		<li>Chemical component queries return a list of ligand IDs. Some examples are Chemical Name query, Chemical structure (SMILES), etc.</li>
+	</ul>
+</div>
+
+<div class="se_spacer" style="clear:both;">&nbsp;</div>
+
+
+<h3>FETCH services</h3>
+
+
+<h4>Custom Reports</h4>
+<ul>
+	<li>Retrieve a <a href="/pdb/software/wsreport.do">custom report with a list of PDB IDs and fields</a></li>
+</ul>
+<div class="se_spacer" style="clear:both;">&nbsp;</div>
+
+<h4>Descriptions</h4>
+<ul>	
+	<li>Get <a href="#descPDB">descriptions for the whole PDB file</a></li>
+	<li>Get <a href="#descEntity">descriptions for PDB entities</a></li>
+	<li>Get <a href="#descComp">descriptions of chemical components</a></li>
+	<li>Get <a href="#ligands">ligands</a> that are present in a single PDB entry</li>	
+</ul>
+<div class="se_spacer" style="clear:both;">&nbsp;</div>
+<h4>Lists and status</h4>
+<ul>
+	<li>Get a PDB ID's <a href="#releaseStatus">release status</a></li>
+	<li>Get a list of all <a href="#current">currently released PDB IDs</a></li>	
+	<li>Get a list of <a href="#unreleased">unreleased PDB IDs</a></li>	
+	<li>Get the <a href="#statusSequence">pre-release sequences in FASTA format</a></li>
+			
+</ul>
+<div class="se_spacer" style="clear:both;">&nbsp;</div>
+<h4>Annotations</h4>		
+<ul>
+	<li><a href="#dasfeatures">Third-party annotations mapped onto PDB chains</a></li>
+	<li>A <a href="#dasalignment">PDB to UniProtKB mappings</a></li>
+	<li><a href="#pfam">Pfam mappings</a> for PDB</li>
+	<li>Access <a href="#go">Gene Ontology terms</a> for a PDB chain.</li>
+</ul>
+<div class="se_spacer" style="clear:both;">&nbsp;</div>
+<h4>Sequence and Structure Clusters</h4>
+<ul>	
+	<li><a href="#seqClust">Sequence and Structure cluster</a> related services</li>
+</ul>
+
+<div class="se_spacer" style="clear:both;">&nbsp;</div>
+
+<hr/>
+
+<a name="descPDB"></a>
+
+<div class="panel panel-default">
+	<div class="panel-heading"><b>PDB File Description Service</b></div>
+	<div class="panel-body">
+		Access general information about a PDB entry (e.g., Header information).
+		<ul>
+			<li>Example: Access the information for one file: <a href="/pdb/rest/describePDB?structureId=4hhb">/pdb/rest/describePDB?structureId=4hhb</a></li>
+
+			<li>Example: Access the information only for multiple files: <a href="/pdb/rest/describePDB?structureId=4hhb,1hhb">/pdb/rest/describePDB?structureId=4hhb,1hhb</a></li>
+		</ul>
+
+		Describe the molecular entities that are contained in a PDB entry. Also provides information on the number of available biological assemblies.
+
+		<ul>
+			<li>Example: Access for one PDB ID<a href="/pdb/rest/getEntityInfo?structureId=1hv4">/pdb/rest/getEntityInfo?structureId=1hv4</a></li>
+			<li>Example: Access the information for all PDB IDs: <a href="/pdb/rest/getEntityInfo">/pdb/rest/getEntityInfo</a></li>
+
+		</ul>
+	</div>
+</div>
+
+
+
+<a name="descEntity"></a>
+
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Descriptions of PDB entities</b></div>
+	<div class="panel-body">
+		Access the descriptions of the entities that are contained in a PDB file.
+		<ul>
+			<li>Example: Access the information for all entities in the file: <a href="/pdb/rest/describeMol?structureId=4hhb">/pdb/rest/describeMol?structureId=4hhb</a></li>
+
+			<li>Example: Access the information only for a single PDB chain: <a href="/pdb/rest/describeMol?structureId=4hhb.A">/pdb/rest/describeMol?structureId=4hhb.A</a></li>
+		</ul>
+	</div>
+</div>
+
+<a name="descComp"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Descriptions of Chemical Components</b></div>
+	<div class="panel-body">
+		Access the descriptions of the chemical components based on their IDs. XML contains a PDB ID as an example of where it can be found.
+		<ul>
+			<li>Example: Access the information for one components: <a href="/pdb/rest/describeHet?chemicalID=NAG">/pdb/rest/describeHet?chemicalID=NAG</a></li>
+
+			<li>Example: Access the information for multiple components: <a href="/pdb/rest/describeHet?chemicalID=NAG,EBW">/pdb/rest/describeHet?chemicalID=NAG,EBW</a></li>
+		</ul>
+	</div>
+</div>
+
+
+<a name="current"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>List all current/obsolete PDB IDs</b></div>
+	<div class="panel-body">
+		Get a list of all current PDB IDs.
+		<ul>
+			<li>Example: List all current PDB IDs: <a href="/pdb/rest/getCurrent">/pdb/rest/getCurrent</a></li>
+		</ul>
+		Get a list of all obsolete PDB IDs.
+		<ul>
+			<li>Example: List all obsolete PDB IDs: <a href="/pdb/rest/getObsolete">/pdb/rest/getObsolete</a></li>
+		</ul>
+	</div>
+</div>
+
+
+
+<a name="blastPdb"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>BLAST search on the PDB database</b></div>
+	<div class="panel-body">
+		BLAST with Sequence.
+		<ul>
+			<li>Example:  HTML output: <a href=/pdb/rest/getBlastPDB1?sequence=VLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTAVAHVDDMPNAL&eCutOff=10.0&matrix=BLOSUM62&outputFormat=HTML>/pdb/rest/getBlastPDB1?sequence=VLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTAVAHVDDMPNAL&eCutOff=10.0&matrix=BLOSUM62&outputFormat=HTML</a> </li>
+			<li>Example:  XML output: <a href=/pdb/rest/getBlastPDB1?sequence=VLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTAVAHVDDMPNAL&eCutOff=10.0&matrix=BLOSUM62&outputFormat=XML>/pdb/rest/getBlastPDB1?sequence=VLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTAVAHVDDMPNAL&eCutOff=10.0&matrix=BLOSUM62&outputFormat=XML</a> </li>
+			<li>Example:  Plain text output: <a href=/pdb/rest/getBlastPDB1?sequence=VLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTAVAHVDDMPNAL&eCutOff=10.0&matrix=BLOSUM62>/pdb/rest/getBlastPDB1?sequence=VLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTAVAHVDDMPNAL&eCutOff=10.0&matrix=BLOSUM62</a> </li>
+		</ul>
+		
+		BLAST with Structure ID and Chain ID.
+		<ul>
+			<li>Example:  HTML output: <a href=/pdb/rest/getBlastPDB2?structureId=4HHB&chainId=A&eCutOff=10.0&matrix=BLOSUM62&outputFormat=HTML>/pdb/rest/getBlastPDB2?structureId=4HHB&chainId=A&eCutOff=10.0&matrix=BLOSUM62&outputFormat=HTML</a> </li>
+			<li>Example:  XML output: <a href=/pdb/rest/getBlastPDB2?structureId=4HHB&chainId=A&eCutOff=10.0&matrix=BLOSUM62&outputFormat=XML>/pdb/rest/getBlastPDB2?structureId=4HHB&chainId=A&eCutOff=10.0&matrix=BLOSUM62&outputFormat=XML</a> </li>
+			<li>Example:  Plain text output: <a href=/pdb/rest/getBlastPDB2?structureId=4HHB&chainId=A&eCutOff=10.0&matrix=BLOSUM62>/pdb/rest/getBlastPDB2?structureId=4HHB&chainId=A&eCutOff=10.0&matrix=BLOSUM62</a> </li>
+		</ul>
+
+		View a Java example that submits a BLAST search via a POST:
+		<a href="static.do?p=/software/webservices/PostBLASTQuery.jsp">PostBLASTQuery.java</a>
+
+	</div>
+</div>
+
+<a name="releaseStatus"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Information about release status</b></div>
+	<div class="panel-body">
+		Get Information about the release status for one or multiple PDB ids.
+		<ul>
+			<li>Example: Access the information for a one PDB ID: <a href="/pdb/rest/idStatus?structureId=4HHB">/pdb/rest/idStatus?structureId=4HHB</a></li>
+			<li>Example: Access the information for a set of PDB IDs: <a href="/pdb/rest/idStatus?structureId=450D,451D">/pdb/rest/idStatus?structureId=450D,451D</a></li>
+
+		</ul>
+	</div>
+</div>
+
+
+
+<a name="unreleased"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>List unreleased PDB IDs</b></div>
+	<div class="panel-body">
+		Get a list of PDB IDs that have not been released yet.
+		<ul>
+			<li>Example: Access the information for a subset of PDB IDs: <a href="/pdb/rest/getUnreleased?structureId=450D,451D">/pdb/rest/getUnreleased?structureId=450D,451D</a></li>
+			<li>Example: Access the information for all unreleased PDB IDs: <a href="/pdb/rest/getUnreleased">/pdb/rest/getUnreleased</a></li>
+			<li>Example: Access the information of unreleased PDB IDs based on SG Project Initials: <a href="/pdb/rest/getUnreleased?sgInit=SSGCID">/pdb/rest/getUnreleased?sgInit=SSGCID</a></li>
+		</ul>
+	</div>
+</div>
+
+
+<a name="statusSequence"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>List pre-release sequences in FASTA format</b></div>
+	<div class="panel-body">
+		Get a list of pre-release sequence in FASTA format.
+		<ul>
+			<li>Example: Access the information for a subset of PDB IDs: <a href="/pdb/rest/getStatusSequence?structureId=3MU6,3QV1,3SSF">/pdb/rest/getStatusSequence?structureId=3MU6,3QV1,3SSF</a></li>
+			<li>Example: Access the information for a subset of PDB IDs, entity type, and range of deposition date: <a href="/pdb/rest/getStatusSequence?entityType=RNA&depositionDateMin=2011-07-01&depositionDateMax=2011-07-30">/pdb/rest/getStatusSequence?entityType=RNA&depositionDateMin=2011-07-01&depositionDateMax=2011-07-30</a>
+				(The entity type can be <b>RNA</b>, <b>DNA</b>, and <b>Polypeptide</b>.)
+			</li>
+			<li>Example: Access the information for all unreleased PDB IDs: <a href="/pdb/rest/getStatusSequence">/pdb/rest/getStatusSequence</a></li>
+		</ul>
+	</div>
+</div>
+
+
+
+<a name="ligands"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Ligands in PDB files</b></div>
+	<div class="panel-body">
+		List the ligands that can be found in a PDB entry.
+		<ul>
+			<li>Example: <a href="/pdb/rest/ligandInfo?structureId=4HHB">/pdb/rest/ligandInfo?structureId=4HHB</a></li>
+		</ul>
+	</div>
+</div>
+
+
+<a name="go"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Gene Ontology terms for PDB chains</b></div>
+	<div class="panel-body">
+		List the <b>Gene Ontology terms</b> that have been annotated for a PDB chain. (Same as on the Annotations tab in the structure explorer pages).
+
+		<ul>
+			<li>Example: <a href="/pdb/rest/goTerms?structureId=4HHB">/pdb/rest/goTerms?structureId=4HHB</a></li>
+			<li>Example: <a href="/pdb/rest/goTerms?structureId=4HHB.A">/pdb/rest/goTerms?structureId=4HHB.A</a></li>
+			<li>Example: <a href="/pdb/rest/goTerms?structureId=4hHHB.A,1A4W.H">/pdb/rest/goTerms?structureId=4HHB.A,1A4W.H</a></li>
+		</ul>
+	</div>
+</div>
+
+
+
+<a name="pfam"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Pfam annotations for PDB entries</b></div>
+	<div class="panel-body">
+		The <b>Pfam annotations</b> that are displayed on the RCSB PDB web site are calculated by weekly scripting the
+		<a href="http://hmmer.janelia.org/">Hmmer web site</a>. The calculated annotations can be downloaded using any of these options:
+		<ul>
+			<li>per PDB ID: <a href="/pdb/rest/hmmer?structureId=4hhb">/pdb/rest/hmmer?structureId=4hhb</a></li>
+			<li>all annotations in one XML file <a href="/pdb/rest/hmmer">/pdb/rest/hmmer</a></li>
+			<li>all annotations in one tab-delimited file <a href="/pdb/rest/hmmer?file=hmmer_pdb_all.txt">/pdb/rest/hmmer?file=hmmer_pdb_all.txt</a></li>
+
+		</ul>
+	</div>
+</div>
+
+
+<a name="seqClust"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Sequence and Structure cluster related web services</b></div>
+	<div class="panel-body">
+		Various requests related to the sequence and 3D - structure clustering are available:
+
+		<ul>
+			<li><a href="/pdb/rest/sequenceCluster?cluster=40&structureId=4hhb.A">/pdb/rest/sequenceCluster?cluster=40&structureId=4hhb.A</a> Get all the sequence cluster at 40% sequence ID for a particular chain ID.</li>
+
+			<li><a href="/pdb/rest/representatives?cluster=40">/pdb/rest/representatives?cluster=40</a> Get all representative chains from the 40% sequence clustering.</li>
+			<li><a href="/pdb/rest/representatives?structureId=4hhb.A">/pdb/rest/representatives?structureId=4hhb.A</a> Get the representative for a chain (the chain on Rank 1  in the sequence clustering).</li>
+
+			<li><a href="/pdb/rest/representativeDomains?cluster=40">/pdb/rest/representativeDomains?cluster=40</a> Get all representative domains that are used for the systematic structure alignments.</li>
+			<li><a href="/pdb/rest/representativeDomains?structureId=4hhb.A">/pdb/rest/representativeDomains?structureId=4hhb.A</a> Get the representatives domains for a chain.</li>
+		</ul>
+
+		<p>
+			The names of the representative domains are either SCOP domain IDs (starting with &quot;d&quot;) or domain IDs as have been assigned with the Protein Domain Parser software (&quot;PDP:&quot;)
+		</p>
+
+
+		<p>
+			The all vs. all structural similarity results table for a representative chain can be downloaded in XML.
+
+			For example, this returns Rank, PDB.Chain, Description,  P-value, Score, RMSD, Len1, Len2, %Sim1,
+			and %Sim2 for 3BMV.A
+			<a href="/pdb/explorer/SSPv2/structCompXMLData.jsp?method=pw_fatcat&chain=d3bmva1&page=1&rows=10&prettyXML">/pdb/explorer/SSPv2/structCompXMLData.jsp?method=pw_fatcat&chain=d3bmva1&page=1&rows=10&prettyXML</a>.
+
+			Note: A maximum 2000 rows can be returned through this URL. To fetch all approx. 17,000 results for a chain,you need to slice through the results using the <i>page</i> parameter.
+
+		<p/>
+		There are additional parameters for this URL, which allow sorting. e.g. this sorts by P-value
+
+		<a href="/pdb/explorer/SSPv2/structCompXMLData.jsp?method=pw_fatcat&showAllResults=false&chain=d1iarb1&rows=15&page=1&sidx=probability&sord=asc">/pdb/explorer/SSPv2/structCompXMLData.jsp?method=pw_fatcat&showAllResults=false&chain=d1iarb1&rows=15&page=1&sidx=probability&sord=asc</a>
+
+		Parameters that can be used for sorting (the value of the sidx parameter) are: name2,desc,probability, score, rmsdOpt, len1, len2, pid, sim1, sim2.
+		</p>
+
+	</div>
+</div>
+
+
+
+
+
+
+<a name="thirdPartyAnnotations"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Third-party annotations and PDB to UniProtKB mapping</b></div>
+	<div class="panel-body">
+		DAS Service: <br/>
+
+		The RESTful services for providing third-party annotations (SCOP, CATH, Pfam, etc.) follows the DAS protocol. The DAS server is available from <a href="/pdb/rest/das/">/pdb/rest/das</a>.
+		The DAS protocol command <i>SOURCES</i> (description of the provided sources) is available from <a href="/pdb/rest/das/sources">/pdb/rest/das/sources</a>.
+
+
+		At the present there are two DAS sources provided:
+		<ul id="dasfeatures">
+			<li>
+				<p><b>pdbchainfeatures:</b></p>
+				Provides various third party annotations that have been computed for PDB chains.<br/>
+				Get the third party features (a DAS - <i>FEATURES</i> request): <a href="/pdb/rest/das/pdbchainfeatures/features?segment=5pti.A">/pdb/rest/das/pdbchainfeatures/features?segment=5pti.A</a><br/>
+				Get the ATOM sequence of the PDB chain (a DAS - <i>SEQUENCE</i> request): <a href="/pdb/rest/das/pdbchainfeatures/sequence?segment=5pti.A">/pdb/rest/das/pdbchainfeatures/sequence?segment=5pti.A</a><br/>
+			</li>
+			<li id="dasalignment">
+				<p><b>pdb_uniprot_mapping:</b></p>
+				Provides a DAS source that is serving the alignment between UniProtKB and PDB, derived from the <a href="http://www.ebi.ac.uk/msd/sifts/">SIFTS mappings</a>.<br/>
+				Example: Get all alignments for a PDB (a DAS - <i>ALIGNMENT</i> request) <a href="/pdb/rest/das/pdb_uniprot_mapping/alignment?query=4hhb">/pdb/rest/das/pdb_uniprot_mapping/alignment?query=4hhb</a><br/>
+				Example: Get all alignments for a single PDB chain (a DAS - <i>ALIGNMENT</i> request) <a href="/pdb/rest/das/pdb_uniprot_mapping/alignment?query=4hhb.A">/pdb/rest/das/pdb_uniprot_mapping/alignment?query=4hhb.A</a><br/>
+			</li>
+
+		</ul>
+
+		<p>For more documentation on the DAS protocol, see <a href="http://www.dasregistry.org/">http://www.dasregistry.org/</a></p>
+
+
+	</div>
+</div>
+
+
+<a name="smiles"></a>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>Chemical Structure searches with SMILES strings</b></div>
+	<div class="panel-body">
+		This query performs chemical structure searches using <a href="http://en.wikipedia.org/wiki/Simplified_molecular_input_line_entry_specification">SMILES</a> string.
+		</br>
+		Search types include <a href="/pdb/staticHelp.do?p=help/advancedsearch/chemSmiles.html">exact, substructure, superstructure and similarity</a>.
+
+		<ul>
+
+			
+			<li>Exact:  find an exact structure match<br/>
+			</li>
+			<a href="/pdb/rest/smilesQuery?smiles=NC(=O)C1=CC=CC=C1&amp;search_type=exact">/pdb/rest/smilesQuery?smiles=NC(=O)C1=CC=CC=C1&amp;search_type=exact</a>
+
+			
+			<li>Substructure:  find ligands that contain the specified structure as a substructure<br/>
+			</li>
+			<a href="/pdb/rest/smilesQuery?smiles=NC(=O)C1=CC=CC=C1&amp;search_type=substructure">/pdb/rest/smilesQuery?smiles=NC(=O)C1=CC=CC=C1&amp;search_type=substructure</a><br/>
+
+			
+			<li>Superstructure: find ligands that are substructures (fragments) of the specified structure</br>
+			</li>
+			<a href="/pdb/rest/smilesQuery?smiles=OC(=O)c1ccc(OCc2ccccc2)cc1&amp;search_type=superstructure">/pdb/rest/smilesQuery?smiles=OC(=O)c1ccc(OCc2ccccc2)cc1&amp;search_type=superstructure</a><br/>
+
+			
+			<li>Similarity:  find structures that bind similar ligands.<br/>
+				Specify a similarity threshold to change the degree of similarity in the [0...1] range:  0 dissimilar ... 1 identical.<br/>
+				The similarity is based on the number of chemical features in common between the query and the target molecule.
+				Similarity is calculated using <a href="http://en.wikipedia.org/wiki/Tanimoto_coefficient">the Tanimoto Coefficient</a>.
+			</li>
+			<a href="/pdb/rest/smilesQuery?smiles=OC(=O)c1ccc(OCc2ccccc2)cc1&amp;search_type=similarity&amp;similarity=0.7">/pdb/rest/smilesQuery?smiles=OC(=O)c1ccc(OCc2ccccc2)cc1&amp;search_type=similarity&amp;similarity=0.7</a>
+
+		</ul>
+
+	</div>
+</div>
+
+<a name="search"></a>
+
+<div class="panel panel-default">
+	<div class="panel-heading"><b>SEARCH service</b></div>
+	<div class="panel-body">
+		<p>
+			This interface exposes the RCSB PDB <a href="/pdb/search/advSearch.do">advanced search</a> interface as an XML Web Service.
+		</p>
+
+		<p>
+			To use this service, POST a XML representation of an advanced search to <a href="/pdb/rest/search">/pdb/rest/search</a>.
+		</p>
+
+		<h4>XML representation of advanced search</h4>
+
+		<p>
+			Every <a href="/pdb/search/advSearch.do">advanced search</a> can be represented by XML.
+			To view an example representation, simply execute an advanced search query and then click on the <a href="/pdb/results/results.do">Result tab</a>. One of the links
+			on the top of the page is <b>Query Details</b>.
+			Clicking on this link will provide the XML representation of the query.
+		</p>
+
+		<p> Every query is described by two data items:</p>
+		<ul>
+			<li><b>queryType:</b> the name of the class that is implementing the query</li>
+			<li><b>arguments:</b> depending on the type of query that is being executed one or more differently named arguments need to be provided.</li>
+		</ul>
+	</div>
+</div>
+
+<input type="hidden" name="onReportPage" id="onReportPage" value="n" />
+
+
+
+<script type="text/javascript">
+    function advFunction(searchOption) {
+        var queryToXML = searchOption.options[searchOption.selectedIndex].value;
+
+        if (queryToXML != "default") {
+
+            $.post("/pdb/rest/xml/",
+                    queryToXML,
+                    function (data){
+                        var obj = document.getElementById("xmlText");
+                        obj.value = data
+                    }
+            );
+        }
+        else
+        {
+            alert("Please enter a query in the text box.");
+        }
+        return false;
+    }
+</script>
+
+<div class="panel panel-default">
+
+
+
+    <div class="panel-body">
+
+
+        <h4>Sample XML Queries:</h4>
+        <div class="form-group">
+            <select class="selectpicker" name="advSearch" id="advSearch" onChange="advFunction(this)">
+                <option value="default">Please Select...</option>
+                <optgroup label='Quick Search' value='Quick Search'>Quick Search<option value='HoldingsQuery'>All/Experimental Type/Molecule Type</option></optgroup><optgroup label='ID(s) and Keywords' value='ID(s) and Keywords'>ID(s) and Keywords<option value='StructureIdQuery'>PDB ID(s)</option><option value='EntityIdQuery'>Entity ID(s)</option><option value='ChainIdQuery'>Chain ID(s)</option><option value='PubmedIdQuery'>PubMed ID(s)</option><option value='UpAccessionIdQuery'>UniProtKB Accession Number(s)</option><option value='AdvancedKeywordQuery'>Text Search</option><option value='TokenKeywordQuery'>mmCIF Keyword Search (Classification)</option><option value='PfamIdQuery'>Pfam Accession Number(s)</option><option value='UniprotGeneNameQuery'>UniProt Gene Name</option><option value='SequenceClusterQuery'>Sequence Cluster Name</option></optgroup><optgroup label='Structure Annotation' value='Structure Annotation'>Structure Annotation<option value='StructTitleQuery'>Structure Title</option><option value='StructDescQuery'>Structure Description</option><option value='MoleculeNameQuery'>Macromolecule Name</option><option value='PathwayQuery'>Pathway Reaction Name</option><option value='LargeStructureQuery'>Large Structures</option></optgroup><optgroup label='Deposition' value='Deposition'>Deposition<option value='AdvancedAuthorQuery'>Author Name</option><option value='DepositDateQuery'>Deposit Date</option><option value='ReleaseDateQuery'>Release Date</option><option value='ReviseDateQuery'>Revision Date</option><option value='LastLoadQuery'>Latest Released Structures</option><option value='ModifiedStructuresQuery'>Latest Modified Structures</option><option value='SGProjectQuery'>Structural Genomics Project</option></optgroup><optgroup label='Structure Features' value='Structure Features'>Structure Features<option value='ChainTypeQuery'>Macromolecule Type</option><option value='NumberOfChainsQuery'>Number of Chains (Asymmetric Unit)</option><option value='BiolUnitQuery'>Number of Chains (Biological Assembly)</option><option value='NumberOfEntitiesQuery'>Number of Entities</option><option value='StoichiometryQuery'>Protein Stoichiometry</option><option value='PointGroupQuery'>Protein Symmetry</option><option value='TreeQuery_20'>Protein Symmetry Browser</option><option value='ModelCountQuery'>Number of Models</option><option value='CloseContactsQuery'>Number of Disulfide Bonds</option><option value='LinkConnectionQuery'>Link records</option><option value='MolecularWeightQuery'>Molecular Weight (Structure)</option><option value='SecondaryStructureQuery'>Secondary Structure Content</option><option value='SecondaryStructureLengthQuery'>Secondary Structure Length</option><option value='TreeQuery_11'>SCOP Classification Browser</option><option value='TreeQuery_12'>CATH Classification Browser</option><option value='TreeQueryExpression_1'>Taxonomy Browser</option></optgroup><optgroup label='Sequence Features' value='Sequence Features'>Sequence Features<option value='SequenceQuery'>Sequence (BLAST/PSI-BLAST)</option><option value='WildTypeProteinQuery'>Wild Type Protein</option><option value='MutationQuery'>Mutation</option><option value='BlastXQuery'>Translated Nucleotide Sequence (BLASTX)</option><option value='MotifQuery'>Sequence Motif</option><option value='SequenceLengthQuery'>Chain Length</option><option value='ProteinModificationsQuery'>Protein Modifications</option><option value='TreeQuery_17'>Protein Modification Browser</option><option value='TreeEntityQuery_13'>Genome Location Browser</option></optgroup><optgroup label='Chemical Components' value='Chemical Components'>Chemical Components<option value='ChemCompNameQuery'>Chemical Name</option><option value='ChemCompIdQuery'>Chemical ID(s)</option><option value='ChemCompDescriptorQuery'>InChI Descriptor</option><option value='ChemSmilesQuery'>Chemical structure (SMILES)</option><option value='ChemFormulaWeightQuery'>Molecular Weight (Chemical component)</option><option value='ChemCompFormulaQuery'>Chemical Formula</option><option value='ChemCompTypeQuery'>Chemical Component Type</option><option value='BindingAffinityQuery'>Binding Affinity</option><option value='NoLigandQuery'>Has Ligand(s)</option><option value='NoModResQuery'>Has Modified Residue(s)</option><option value='ChemCompSubCompQuery'>Sub-components</option></optgroup><optgroup label='Biologically Interesting Molecules' value='Biologically Interesting Molecules'>Biologically Interesting Molecules<option value='BirdQuery'>Biologically Interesting Molecules (from BIRD)</option></optgroup><optgroup label='Biology' value='Biology'>Biology<option value='TreeEntityQuery_1'>Source Organism Browser (NCBI)</option><option value='ExpressionOrganismQuery'>Expression Organism</option><option value='TreeEntityQuery_3'>Enzyme Classification Browser</option><option value='EnzymeClassificationQuery'>Enzyme Classification</option><option value='TreeEntityQuery_4'>Biological Process Browser (GO)</option><option value='TreeEntityQuery_5'>Cell Component Browser (GO)</option><option value='TreeEntityQuery_6'>Molecular Function Browser (GO)</option><option value='TreeQuery_16'>Transporter Classification Browser</option></optgroup><optgroup label='Methods' value='Methods'>Methods<option value='ExpTypeQuery'>Experimental Method</option><option value='ResolutionQuery'>X-ray Resolution</option><option value='AverageBFactorQuery'>X-ray Average B Factor</option><option value='XrayRefinementQuery'>Refinement R Factors</option><option value='XrayDiffrnSourceQuery'>Diffraction Source</option><option value='MethodToDetermineStructQuery'>Structure Determination Method</option><option value='XrayReflnsQuery'>Reflections</option><option value='XrayCellQuery'>Cell Dimensions</option><option value='SoftwareQuery'>Software</option><option value='SpaceGroupQuery'>Space Group</option><option value='CrystalQuery'>Crystal Properties</option><option value='EmAssemblyQuery'>EM Assembly</option><option value='DetectorTypeQuery'>Detector</option></optgroup><optgroup label='Publication' value='Publication'>Publication<option value='CitationTwoQuery'>Citation</option><option value='TreeQuery_15'>Medical Subject Headings Browser</option><option value='PubMedQuery'>PubMed Abstract</option></optgroup><optgroup label='Miscellaneous' value='Miscellaneous'>Miscellaneous<option value='ExternalLinkQuery'>Has External Links</option></optgroup>
+            </select>
+        </div>
+
+        <p>
+            <b>The query is displayed in the Textbox below</b>
+        </p>
+
+        <blockquote>
+            <p class="small">
+                <b>Example: </b><br>
+                &lt;orgPdbQuery&gt;<br>
+                &lt;queryType&gt;org.pdb.query.simple.UpAccessionIdQuery&lt;/queryType&gt;<br>
+                &lt;description&gt;Simple query for a list of UniprotKB Accession IDs: P50225&lt;/description&gt;<br>
+                &lt;accessionIdList&gt;P50225&lt;/accessionIdList&gt;<br>
+                &lt;/orgPdbQuery&gt;<br>
+            </p>
+        </blockquote>
+
+
+        <p>Now let's <b>POST</b> this query against the Web Service:</p>
+
+        <script type="text/javascript">
+
+            function submitForm(){
+
+                var sorting = document.getElementById('sortField').value;
+                var queryXML = document.getElementById('xmlText').value;
+
+                if (queryXML.length > 0) {
+
+                    queryXML = checkComparator(queryXML);
+
+                    var xmlText = encodeURIComponent(queryXML);
+
+                    var restUrl="/pdb/rest/search/"+(sorting?"?sortfield="+sorting:"")
+                    document.getElementById('restUrl').innerHTML="Posted XML to: "+restUrl;
+
+                    $.post("/pdb/rest/search/?req=browser"+(sorting?"&sortfield="+sorting:""),
+                            xmlText,
+                            function (data){
+
+                                var spl = data.trim().split("\n");
+
+                                var rs=0;
+                                var h = "<p>";
+
+                                var qrid=null;
+
+                                var onReportPage = document.getElementById("onReportPage").value;
+
+                                //alert("onReportPage="+onReportPage);
+
+                                if (onReportPage=="n") {
+
+                                    for (var spliti = 0; spliti < spl.length; spliti++){
+                                        var it = spl[spliti].replace(/[\n\t\r]/g,"");
+
+                                        if (it.length<4)
+                                        {
+                                            h+='<a href="/pdb/ligand/ligandsummary.do?hetId='+it+'">'+it+'</a> '
+                                            rs++;
+                                        } else if (it.length==4) {
+                                            h+='<a href="/pdb/explore.do?structureId='+it+'">'+it+'</a> ';
+                                            rs++;
+                                        } else if ((it.length>4)&&(it.indexOf(".")>0))
+                                        {
+                                            h+='<a href="/pdb/explore/remediatedSequence.do?structureId='+it.substring(0,4)+'&params.chainEntityStrategyStr=all&forcePageForChain='+it.substring(5)+'">'+it+'</a> ';
+                                            rs++;
+                                        } else if ((it.length>4)&&(it.indexOf(":")>0))
+                                        {
+                                            h+='<a href="/pdb/explore/remediatedSequence.do?structureId='+it.substring(0,4)+'">'+it+'</a> ';
+                                            rs++;
+                                        }
+                                        else if(it.length>4 && spliti>0 && rs>0) {
+                                            h+='<br/><br/><a href="/pdb/results/results.do?qrid='+it+'">View results</a> ';
+                                            qrid=it;
+                                        }
+                                    }
+                                    h+="</p>";
+                                    h="<p>"+rs+" results</p>"+h;
+                                }
+                                else {
+
+                                    h="";
+                                    for (var spliti = 0; spliti < spl.length; spliti++) {
+                                        var it = spl[spliti].replace(/[\n\t\r]/g,"");
+
+                                        if ((h.length > 0) && (it.length <= 4)) {
+                                            h+=",";
+                                        }
+                                        if ((h.length > 0) && (it.length > 4) && ((it.indexOf(".")>0)||(it.indexOf(":")>0))) {
+                                            h+=",";
+                                        }
+                                        if ((it.length == 4)||(it.indexOf(".")>0)||(it.indexOf(":")>0)) {
+                                            h+=it;
+                                        }
+                                        else if (it.length > 4)
+                                        {
+                                            qrid=it;
+                                        }
+                                    }
+                                }
+
+                                $('#restResults').html(h);
+                                document.getElementById('qridHidden').value=qrid;
+                            }
+                    );
+                }
+                else
+                {
+                    alert("Please enter a query in the text box.");
+                }
+                return false;
+
+            }
+
+            function checkComparator(queryXML) {
+
+                while (queryXML.indexOf(".comparator=< ")>-1) {
+                    queryXML = queryXML.replace(".comparator=< ", ".comparator=<![CDATA[<]]>");
+                }
+
+                while (queryXML.indexOf(".comparator><<")>-1) {
+                    queryXML = queryXML.replace(".comparator><<", ".comparator><![CDATA[<]]><");
+                }
+
+                while (queryXML.indexOf(".comparator=> ")>-1) {
+                    queryXML = queryXML.replace(".comparator=> ", ".comparator=<![CDATA[>]]>");
+                }
+
+                while (queryXML.indexOf(".comparator>><")>-1) {
+                    queryXML = queryXML.replace(".comparator>><", ".comparator><![CDATA[>]]><");
+                }
+                return queryXML;
+
+            }
+        </script>
+
+<div class="form-group">
+
+    <textarea class="form-control" rows="10" id="xmlText">
+    <orgPdbQuery>
+
+        <queryType>org.pdb.query.simple.UpAccessionIdQuery</queryType>
+
+        <description>Simple query for a list of UniprotKB Accession IDs: P50225</description>
+
+        <accessionIdList>P50225</accessionIdList>
+
+    </orgPdbQuery>
+    </textarea>
+</div>
+
+<div class="well well-sm">
+    <div class="form-group">
+        <label for="sortField">Sort results by:</label>
+        <select class="form-control" style="width:auto;" id="sortField">
+            <option value="">&#x21E7; PDB ID (default)</option>
+            <option value="Release Date">&#x21E7; Release Date</option>
+            <option value="Residue Count">&#x21E7; Residue Count</option>
+            <option value="Resolution">&#x21E7; Resolution</option>
+            <option value="rank Descending">&#x21E9; Relevance/E value</option>
+        </select>
+    </div>
+    <input class="btn btn-primary btn-sm" type="submit" value="POST XML"
+           onclick="submitForm();" title="The results  will appear in the box below." />
+    <input class="btn btn-primary btn-sm" type="button" value="RESET"
+           onclick="document.getElementById('xmlText').value=''" title="Clear the query above." />
+</div>
+
+<br>
+
+<div id="restUrl">
+</div>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">Results will go here:</div>
+    </div>
+    <div class="panel-body">
+        <div id="restResults"></div>
+    </div>
+</div>
+
+        <input type="hidden" name="qridHidden" id="qridHidden" value="" />
+        <input type="hidden" name="pdbidCount" id="pdbidCount" value="" />
+        <input type="hidden" name="fieldCount" id="fieldCount" value="" />
+        <input type="hidden" name="ssa" id="ssa" value="n" />
+
+        <input class="btn btn-primary btn-sm pull-right" type="button" value="CLEAR RESULTS" onclick="document.getElementById('restResults').innerHTML='';window.location.reload();" title="Clear the results above." />
+
+    </div>
+</div>
+
+<div class="se_spacer">&nbsp;</div>
+
+
+
+
+
+<div class="well">
+
+<ul>
+	<li>View a Perl example that submits a simple search for organism:
+		<a href="static.do?p=/software/webservices/search_organism.jsp">search_organism.pl</a>
+	</li>
+	<li>View a Java example that submits a more complex Advanced Search doing a BLAST search and only looking at X-RAY structures.
+		<a href="static.do?p=/software/webservices/PostXMLQuery.jsp">PostXMLQuery.java</a>
+	</li>
+	<li>View a Python example that submits a simple search for all Solid State NMR proteins:
+		<a href="static.do?p=/software/webservices/search_nmr.jsp">search_nmr.py</a>
+	</li>
+</ul>
+
+</div>
+
+<div class="se_spacer">&nbsp;</div>
+
+<hr/>
+
+
+
+
+</div>
+<!-- Footer: stats, common links -->
+<div id="footer_main" class="hidden-print">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-8 text-center">
+                <ul class="col-xs-4 col-sm-12">
+                    <li><span class="row_header">About</span></li>
+                    <li><a href="/pdb/static.do?p=general_information/about_pdb/index.html">About Us</a></li>
+                    <li>
+                        <a href="/pdb/static.do?p=general_information/about_pdb/policies_references.html#References">Citing Us</a>
+                    </li>
+                    <li><a href="/pdb/static.do?p=general_information/news_publications/index.jsp">Publications</a>
+                    </li>
+                    <li><a href="/pdb/static.do?p=general_information/about_pdb/contact/pdb_members.html">Team</a></li>
+                    <li><a href="/pdb/static.do?p=general_information/about_pdb/contact/job_listings.html">Careers</a>
+                    </li>
+                    <li>
+                        <a href="/pdb/static.do?p=general_information/about_pdb/policies_references.html">Usage & Privacy</a>
+                    </li>
+                </ul>
+                <ul class="col-xs-4 col-sm-12">
+                    <li><span class="row_header">Help</span></li>
+                    <li><a href="/pdb/home/contactUs.do">Contact Us</a></li>
+                    <li><a href="/pdb/static.do?p=help/index.html">Help Topics</a></li>
+                    <li><a href="/pdb/static.do?p=home/faq.html">Website FAQ</a></li>
+                    <li><a href="/pdb/browser/browsercheck.do">Browser Test</a></li>
+                    <li><a href="/pdb/static.do?p=help/glossary.html">Glossary</a></li>
+                </ul>
+                <ul class="col-xs-4 col-sm-12">
+                    <li><span class="row_header">RCSB Partners</span></li>
+                    <li><a href="http://ndbserver.rutgers.edu/" target="_blank">Nucleic Acid Database</a></li>
+                </ul>
+                <ul class="col-xs-4 col-sm-12">
+                    <li><span class="row_header"><a href="http://wwpdb.org/" target="_blank" style="text-decoration: none; color: black">wwPDB Partners</a></span></li>
+                    <li><a href="http://www.rcsb.org/">RCSB PDB</a></li>
+                    <li><a href="http://www.ebi.ac.uk/pdbe/" target="_blank">PDBe</a></li>
+                    <li><a href="http://www.pdbj.org/" target="_blank">PDBj</a></li>
+                    <li><a href="http://www.bmrb.wisc.edu/" target="_blank">BMRB</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center">
+                <p>RCSB PDB (<a href="http://nar.oxfordjournals.org/content/28/1/235.abstract" target="blank">citation</a>) is managed by two members of the <br>Research Collaboratory for Structural Bioinformatics: <br>Rutgers and UCSD/SDSC
+                </p>
+                <img src="//cdn.rcsb.org/rcsb-pdb/v2/common/images/Logo_Rutgers-UCSD-SDSC.png" alt="Rutgers UCSD SDSC" usemap="#university-map" width="331" height="26">
+                <map name="university-map" id="university-map">
+                    <area shape="rect" coords="0,0,115,26" href="http://www.rutgers.edu/" alt="Rutgers" target="_blank">
+                    <area shape="rect" coords="116,0,225,26" href="http://ucsd.edu/" alt="UCSD" target="_blank">
+                    <area shape="rect" coords="226,0,331,26" href="http://www.sdsc.edu/" alt="SDSC" target="_blank">
+                </map>
+
+                <p>RCSB PDB is a member of the
+                    <span id="pdbmembers_footer">
+                        <a href="http://www.wwpdb.org/" target="_blank"><img src="//cdn.rcsb.org/rcsb-pdb/v2/common/images/Logo_wwpdb.png" alt="wwPDB" class="wwpdblogo"></a>
+                        <a href="http://www.emdatabank.org/" target="_blank"><img src="//cdn.rcsb.org/rcsb-pdb/v2/common/images/Logo_EMDatabank.png" alt="EMDataBank" id="emdatabanklogo"></a>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer_grant">
+    <div class="container">
+        <div class="row">
+            <p>The RCSB PDB is funded by a grant (DBI-1338415) from the
+                <a href="http://www.nsf.gov/" target="_blank">National Science Foundation</a>, the
+                <a href="http://www.nih.gov/" target="_blank">National Institutes of Health</a>, and the
+                <a href="http://science.energy.gov/" target="_blank">US Department of Energy</a>.</p>
+        </div>
+    </div>
+</div>
+
+<!-- target div for jira-feedback modal form-->
+<div id="jira-fdbck"></div>
+
+</body>
+</html>
+
+
+Found number of PDB entries: 1270
+
+Process finished with exit code 0
