@@ -6,6 +6,7 @@ from thespian.troupe import troupe
 from py2neo import Graph, Node, Relationship
 
 from Tools import *
+import sys
 
 # Se der erro no ActorSystem, para poder utilizar novamente, basta encerrar
 # os processos PyThon(32bit) no Task Manager
@@ -71,7 +72,7 @@ class GetPdbEntryEnded():  # msg from StorePDBGraphActor to Coordinator
 
 
 # ===============   GET PDB ACTOR
-@troupe(max_count=50, idle_count=1)
+@troupe(max_count=10, idle_count=1)
 class GetPDBActor(ActorTypeDispatcher):
 	def receiveMsg_CooGetPDB(self, getPdbMsg: CooGetPDB, sender):
 		self.troupe_work_in_progress = True
@@ -80,18 +81,28 @@ class GetPDBActor(ActorTypeDispatcher):
 		coordinator = sender
 		dbUser = getPdbMsg.dbUser
 		dbPwd  = getPdbMsg.dbPwd
-		print(f"--GetPDB-TROUPE: {nMsg}")
+		print(f"--GetPDB-TROUPE: {nMsg} pdb: {pdbEntry}")
 		
 		# Pega entrada no PDB (Web):
 		# Teste: casFromPdb = [CAlpha('AABB', 10, 'CA', 123, (12, 14, 16))]  # CAlpha(idPdb, resSeq, resName, serial, aCoo)
 		(entry, casFromPdb) = getPDB(getPdbMsg.pdbEntry)
-		
+		print(f'--fimGet: {pdbEntry}')
 		# cria ator para armazenar a entrada no DB:
 		# dbStoreEntry = self.createActor(GraphDBStorePDB)
 		# Armazena no DB os carbonos alfa - sincrono:
 		py2neo.authenticate("localhost:7474", dbUser, dbPwd)
 		#py2neo.authenticate("localhost:7474", 'neo4j', 'pxyon123')
-		dbGraph = Graph()
+		numTries = 10
+		while numTries > 0:
+			try:
+				dbGraph = Graph()
+				break
+			except:
+				print(f'-----Err: {pdbEntry} :', sys.exc_info()[0])
+				time.sleep(1)
+				numTries -= 1
+			
+		print(f'--dbGraph: {pdbEntry}')
 
 		nNodes = nRels = 0
 		# veririca se o DB ja' tem essa entrada:
@@ -156,7 +167,7 @@ class Coordinator(ActorTypeDispatcher):
 		self.numEntriesToProcess = 0
 		self.numEntriesProcessed = 0
 		self.mainSender = None
-		self.pdbToGraphDB = PdbToGraphDB
+		#self.pdbToGraphDB = PdbToGraphDB
 		self.graphDB = None
 		self.dbUser = "neo4j"
 		self.dbPwd = "pxyon123"
@@ -179,6 +190,7 @@ class Coordinator(ActorTypeDispatcher):
 		self.numEntriesToProcess = len(lstEntries)
 		self.numEntriesProcessed = 0
 		# print(self.Started)
+		print(f'Process: n={self.numEntriesToProcess}')
 		if self.started:
 			if self.numEntriesToProcess > 0:
 				# cria os atores: (um so' ator, pois e' troupe) -- troupe nao consegue criar actors: Windows Permission Error
@@ -232,6 +244,7 @@ def run_example(dbUser: str, dbPwd: str, pdbSymList: list, timeout=10, systembas
 
 if __name__ == "__main__":
 	# import sys
+	print('=====TESTE')
 	
 	# pdbEntriesList = ['1LS6:1' '1Z28:1' '2D06:1' '3QVU:1' '3QVV:1' '3U3J:1' '3U3K:1' '3U3M:1' '3U3O:1' '3U3R:1' '4GRA:1' ]
 	#lstPdbEntries = ['1LS6', '1Z28', '2D06', '3QVU', '3QVV', '3U3J', '3U3K', '3U3M', '3U3O', '3U3R', '4GRA' ]
