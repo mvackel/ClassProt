@@ -131,7 +131,7 @@ class GetPDBActor(ActorTypeDispatcher):
 		for nca, oCa in enumerate(casFromPdb):
 			dists = calcDistances(casFromPdb, nca)
 			for n, dist in enumerate(dists[nca:]):  # sempre a partir do CAlpha em diante
-				if dist > 0.0 and dist <= 8.0:
+				if dist > 0.0 and dist <= 10.0:
 					rel = Near_10A(oCa, casFromPdb[nca + n])
 					# 					#dbGraph.merge(rel)
 					tx.merge(rel)
