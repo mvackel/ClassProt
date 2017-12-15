@@ -1,7 +1,9 @@
 import py2neo as pn
 from py2neo import *
-
+from numpy import ndarray
+import numpy as np
 import networkx as nx
+from math import log
 import matplotlib.pyplot as plt
 
 from typing import List
@@ -10,10 +12,13 @@ class MemGraph(nx.Graph):
 	def fromGraphDB(self, dbGraph:pn.Graph, idPdb:str) -> bool:
 		res = dbGraph.data(f"""
 				MATCH (c1:CAlpha {{ IdPDB:'{idPdb}' }} )-[rela:NEAR_10A]-(c2)
-				RETURN id(c1) as c1, id(rela) as r, id(c2) as c2, rela.Dist as dist
+				RETURN c1.ResSeq as rs1, c2.ResSeq as rs2, id(rela) as r, rela.Dist as dist
 				""")
+		# RETURN id(c1) as c1, id(c2) as c2
 		for rel in res:
-			self.add_edge(rel['c1'], rel['c2'], Dist=rel['dist'])
+			#self.add_edge(rel['c1'], rel['c2'], Dist=rel['dist'])
+			self.add_edge(rel['rs1'], rel['rs2'], Dist=rel['dist'])
+
 		
 		return len(res) > 0
 	
@@ -45,7 +50,50 @@ class MemGraph(nx.Graph):
 			aSim[n] = self.calcSimilarityCuttoff(cutoff)
 		return aSim
 	
+	def buildLine(self, sourceNode , numCategories=40) -> np.array:
+		ssp = nx.single_source_dijkstra_path_length(self, sourceNode, weight='Dist' )
+		aNodeDists = np.zeros(numCategories+1).reshape(1,numCategories+1)
+		#visited:List = []
+		for node in ssp:
+			if sourceNode != node:
+				dist = ssp[node]   #self[sourceNode][node]['Dist']   # dist between sourceNode and node
+				idx = int(dist) if int(dist) <= numCategories else numCategories
+				#aNodes = ssp[1][node] # list of nodes in the shortest path between source and node
+				aNodeDists[0, idx] += 1
+		return aNodeDists
+			
+			
 	
+	def buidNodeDistMatrix(self) -> np.array:
+		aNodeDistsMatrix = np.array([])
+		for n, node in enumerate(self):
+			aNodeDists = np.zeros(41).reshape(1, 41)  # de 0 a 1 Angstrons em [0], etc
+			aNodeDists = self.buildLine(node)
+			aNodeDists.reshape(1, 41)
+			if n == 0:
+				aNodeDistsMatrix = aNodeDists
+			else:
+				aNodeDistsMatrix = np.concatenate((aNodeDistsMatrix, aNodeDists), axis=0)
+		return aNodeDistsMatrix
+	
+	# Jensen Shannon Divergence
+	def JensenShannonDiverg(self):
+		matrix = self.buidNodeDistMatrix()
+		(nrows, ncols) = matrix.shape
+		means = np.average(matrix, 0)
+		JSD = 0.0
+		for nc in range(ncols):
+			col = matrix[:, nc]
+			JSD = JSD + sum(_p * np.math.log(_p / means[nc]) for _p in col if _p != 0)
+		return JSD
+	
+	# Network Node Dispersion
+	def NND(self) -> float:
+		diam = nx.diameter(self)
+		nnd = self.JensenShannonDiverg() / np.math.log( diam + 1 )
+		return nnd
+
+
 import time
 
 if __name__ == "__main__":
@@ -57,7 +105,7 @@ if __name__ == "__main__":
 	
 	gProt = MemGraph()
 	gProt.fromGraphDB( dbGraph, '5O75')
-	
+
 	#gProtEdges = gProt.edges(data=True)
 	#g5Edges = [ (x[0],x[1],x[2]) for x in gProtEdges if x[2]['Dist'] <= 5 ]
 	#gProt5 = gProt.edge_subgraph()
@@ -77,14 +125,30 @@ if __name__ == "__main__":
 	print(f'---- Prot : Number of Edges: {gProt.size()}')
 	print(f'---- Prot5: Number of Edges: {gProt5.size()}')
 
-	print(f'---- Similarity[8, 7, 6, 5] = {gProt.calcSimilarityVector()}')
 
-	plt.figure(1)
-	nx.draw_networkx(gProt, with_labels=True)
-	plt.figure(2)
-	nx.draw_networkx(gProt5, with_labels=True)
+	nodeDist = gProt.buildLine(1098)
+	print(f'nodeDist: {nodeDist}')
+	
+	nodeDists = gProt.buidNodeDistMatrix()
+	#print(f'{nodeDists}')
+	
+	jsd = gProt.JensenShannonDiverg()
+	print(f'Jensen-Shannon Divergence: {jsd}')
+	
+	nnd = gProt.NND()
+	print(f'Network Node Dispersion NND: {nnd}')
+	
 
-	#gex = nx.Graph()
-	#gex.add_nodes_from(range(100,110))
-	#nx.draw(gex)
-	plt.show()
+	#print(f'---- Similarity[8, 7, 6, 5] = {gProt.calcSimilarityVector()}')
+
+	plot = False
+	if plot:
+		plt.figure(1)
+		nx.draw_networkx(gProt, with_labels=True)
+		plt.figure(2)
+		nx.draw_networkx(gProt5, with_labels=True)
+	
+		#gex = nx.Graph()
+		#gex.add_nodes_from(range(100,110))
+		#nx.draw(gex)
+		plt.show()
