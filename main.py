@@ -5,11 +5,13 @@ from urllib import parse
 import os
 from PdbToGraphDB import *
 
+from PDBActors import *
+
 class DBGraphFromPDB:
 	def __init__(self):
 		self.url = 	'https://www.rcsb.org/pdb/rest/search/'
 
-	def run(self, parms):
+	def run(self, parms) -> int:
 		(self.queryFName, self.dbUser, self.dbPwd) =  self.VerifyParms(parms)
 		print(f'Parameters: {self.queryFName}, {self.dbUser}, {self.dbPwd}')
 		print(f'File: {os.getcwd()}\{self.queryFName}')
@@ -18,22 +20,24 @@ class DBGraphFromPDB:
 		queryText, err = self.GetQueryFileText( self.queryFName )
 		if err < 0:
 			print('File not found.' if err == -1 else 'Error Reading file.')
-			return
+			return 1
 		if len(queryText) == 0:
 			print(f'File is empty.')
-			return
+			return 2
 		# Executar a query ao PDB:
-		pdbEntries :list = self.QueryPDB( queryText )
-		print( f'Found number of PDB entries: {len(pdbEntries)}' )
-		if len(pdbEntries) == 0:
+		lstPdbEntries :list = self.QueryPDB( queryText )
+		print( f'Found number of PDB entries: {len(lstPdbEntries)}' )
+		if len(lstPdbEntries) == 0:
 			print('Exiting...')
-			return
+			return 3
 		# Carregar os resultados no Neo4j (DB Grafico):
 		#err = self.Load
 		
-		
-		
-		
+		segsPerEntry = 6  # esperado: 4 segundos por entrada
+		timeout = len(lstPdbEntries) * segsPerEntry
+		run_example(self.dbUser, self.dbPwd, lstPdbEntries, timeout, 'multiprocTCPBase')
+	
+	
 	def VerifyParms(self, parms):
 		queryFName = dbUser = dbPwd = ''
 		if len(parms) == 4:
