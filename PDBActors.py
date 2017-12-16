@@ -86,7 +86,7 @@ class GetPDBActor(ActorTypeDispatcher):
 		# Pega entrada no PDB (Web):
 		# Teste: casFromPdb = [CAlpha('AABB', 10, 'CA', 123, (12, 14, 16))]  # CAlpha(idPdb, resSeq, resName, serial, aCoo)
 		(entry, casFromPdb) = getPDB(getPdbMsg.pdbEntry)
-		print(f'--fimGet: {pdbEntry}')
+		#print(f'--fimGet: {pdbEntry}')
 		# cria ator para armazenar a entrada no DB:
 		# dbStoreEntry = self.createActor(GraphDBStorePDB)
 		# Armazena no DB os carbonos alfa - sincrono:
@@ -102,7 +102,7 @@ class GetPDBActor(ActorTypeDispatcher):
 				time.sleep(1)
 				numTries -= 1
 			
-		print(f'--dbGraph: {pdbEntry}')
+		#print(f'--dbGraph: {pdbEntry}')
 
 		nNodes = nRels = 0
 		# veririca se o DB ja' tem essa entrada:
@@ -196,8 +196,9 @@ class Coordinator(ActorTypeDispatcher):
 				# cria os atores: (um so' ator, pois e' troupe) -- troupe nao consegue criar actors: Windows Permission Error
 				# getPdbActor = self.createActor(GetPDBActor)
 				# envia as mensagens:
+				getPdbActor = self.createActor(GetPDBActor)
 				for nMsg, sEntry in enumerate(lstEntries):
-					getPdbActor = self.createActor(GetPDBActor)
+					#3getPdbActor = self.createActor(GetPDBActor)
 					self.send(getPdbActor, CooGetPDB(nMsg, sEntry, self.dbUser, self.dbPwd))
 			else:
 				# Nenhuma entrada para processar: Encerrar:

@@ -104,7 +104,7 @@ if __name__ == "__main__":
 	startTime = time.time()
 	
 	gProt = MemGraph()
-	gProt.fromGraphDB( dbGraph, '5O75')
+	gProt.fromGraphDB( dbGraph, '2JKU')
 
 	#gProtEdges = gProt.edges(data=True)
 	#g5Edges = [ (x[0],x[1],x[2]) for x in gProtEdges if x[2]['Dist'] <= 5 ]
@@ -126,7 +126,7 @@ if __name__ == "__main__":
 	print(f'---- Prot5: Number of Edges: {gProt5.size()}')
 
 
-	nodeDist = gProt.buildLine(1098)
+	nodeDist = gProt.buildLine(659)
 	print(f'nodeDist: {nodeDist}')
 	
 	nodeDists = gProt.buidNodeDistMatrix()
@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
 	#print(f'---- Similarity[8, 7, 6, 5] = {gProt.calcSimilarityVector()}')
 
-	plot = False
+	plot = True
 	if plot:
 		plt.figure(1)
 		nx.draw_networkx(gProt, with_labels=True)

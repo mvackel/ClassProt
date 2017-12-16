@@ -1,28 +1,31 @@
-from gephistreamer import graph
+from gephistreamer import graph as sGraph
 from gephistreamer import streamer
 
-# Create a Streamer
-# adapt if needed :
-print("inicio")
-gephiWs = streamer.GephiWS(hostname="localhost", port=9009, workspace="workspace1")
-# You can also use REST call with GephiREST (a little bit slower than Websocket)
-#stream = streamer.Streamer(streamer.GephiWS(hostname="localhost", port=8090, workspace="workspace1"))
-stream = streamer.Streamer(gephiWs)
+import py2neo as pn
 
-# Create a node with a custom_property
-node_a = graph.Node("A",custom_property=1)
+from MemGraph import *
 
-# Create a node and then add the custom_property
-node_b = graph.Node("B")
-node_b.property['custom_property']=2
 
-# Add the node to the stream
-# you can also do it one by one or via a list
-# l = [node_a,node_b]
-# stream.add_node(*l)
-stream.add_node(node_a,node_b)
-
-# Create edge
-# You can also use the id of the node : graph.Edge("A","B",custom_property="hello")
-edge_ab = graph.Edge(node_a,node_b,custom_property="hello")
-stream.add_edge(edge_ab)
+if __name__ == "__main__":
+	gephiWs = streamer.GephiWS(hostname="localhost", port=8080, workspace="workspace2")
+	# stream = streamer.Streamer(streamer.GephiWS(hostname="localhost", port=8090, workspace="workspace1"))
+	stream = streamer.Streamer(gephiWs)
+	
+	pn.authenticate("localhost:7474", "neo4j", "pxyon123")
+	
+	dbGraph = pn.Graph()
+	
+	startTime = time.time()
+	
+	gProt = MemGraph()
+	gProt.fromGraphDB(dbGraph, '2JKU')
+	
+	# Nodos:
+	ln = []
+	for nodo in gProt.nodes():
+		
+		node_s = sGraph.Node(nodo, custom_property=1)
+		ln.append(node_s)
+		
+	#ln = [ sGraph.Node(x, nome=) for x, p in gProt.nodes()]
+	
