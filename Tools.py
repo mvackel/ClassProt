@@ -1,9 +1,6 @@
 import requests
 import numpy as np
-from py2neo import Node
-from py2neo import Relationship
-# from py2neo import Graph
-# from py2neo import Relationship
+from py2neo import Graph, authenticate, Node, Relationship
 from typing import List
 
 
@@ -123,23 +120,49 @@ def getPDB(idPdb) -> (PDBEntry, List[CAlpha]):
 	return (pdbE, arrCAlfa)
 
 
-def getIdNodePDB(graph, pdbId):
+def getIdNodePDB(graph:Graph, pdbId:str) -> int:
 	query = f'MATCH (p: PDB) WHERE p.IdPDB = "{pdbId}" RETURN id(p) AS id'
 	curs = graph.run(query)
 	return curs.evaluate(field=0)
 
 
-def existsNodePDB(graph, pdbId):
+def existsNodePDB(graph:Graph, pdbId:str) -> bool:
 	id = getIdNodePDB(graph, pdbId)
 	return (id is not None)
 
 
-def getIdNodeCA(graph, pdbId, resSeq):
+def getIdNodeCA(graph:Graph, pdbId:str, resSeq:int) -> int:
 	query = f'MATCH (n: CAlpha) WHERE n.IdPDB = "{pdbId}" AND n.ResSeq = {resSeq} RETURN id(n) AS id'
 	curs = graph.run(query)
 	return curs.evaluate(field=0)
 
 
-def existsNodeCA(graph, pdbId, resSeq):
+def existsNodeCA(graph:Graph, pdbId:str, resSeq:int) -> bool:
 	id = getIdNodeCA(graph, pdbId, resSeq)
 	return (id is not None)
+
+import time, sys
+S_IndexCreated = False
+
+def connectDB(dbUser:str, dbPwd:str, port=7474, host='localhost') -> Graph:
+	authenticate("localhost:7474", dbUser, dbPwd)
+	numTries = 10		# this is only necessary when there are many simultaneous connections
+	dbGraph = None
+	while numTries > 0:
+		try:
+			dbGraph = Graph()
+			break
+		except:
+			print(f'-----Err: ', sys.exc_info()[0])
+			time.sleep(1)
+			numTries -= 1
+			
+	# This is to assure that there is an index on :CAlpha(IdPDB)
+	# TODO: Refatorar todas as funcoes de DBGraph para uma classe
+	global S_IndexCreated
+	if not S_IndexCreated:
+		query = f'CREATE INDEX ON :CAlpha(IdPDB)'
+		dbGraph.run(query)
+		S_IndexCreated = True
+	
+	return dbGraph

@@ -77,7 +77,8 @@ class MemGraph(nx.Graph):
 		return aNodeDistsMatrix
 	
 	# Jensen Shannon Divergence
-	def JensenShannonDiverg(self):
+	# Returns: (JSDiverg, NDD)
+	def JensenShannonDiverg(self) -> (float, float):
 		matrix = self.buidNodeDistMatrix()
 		(nrows, ncols) = matrix.shape
 		means = np.average(matrix, 0)
@@ -85,12 +86,13 @@ class MemGraph(nx.Graph):
 		for nc in range(ncols):
 			col = matrix[:, nc]
 			JSD = JSD + sum(_p * np.math.log(_p / means[nc]) for _p in col if _p != 0)
-		return JSD
+		diam = nx.diameter(self)
+		NDD = JSD / np.math.log( diam + 1 )
+		return (JSD, NDD)
 	
 	# Network Node Dispersion
 	def NND(self) -> float:
-		diam = nx.diameter(self)
-		nnd = self.JensenShannonDiverg() / np.math.log( diam + 1 )
+		jsd, nnd = self.JensenShannonDiverg()
 		return nnd
 
 
@@ -98,7 +100,6 @@ import time
 
 if __name__ == "__main__":
 	pn.authenticate("localhost:7474","neo4j","pxyon123")
-	
 	dbGraph = pn.Graph()
 	
 	startTime = time.time()
@@ -132,10 +133,8 @@ if __name__ == "__main__":
 	nodeDists = gProt.buidNodeDistMatrix()
 	#print(f'{nodeDists}')
 	
-	jsd = gProt.JensenShannonDiverg()
+	jsd, nnd = gProt.JensenShannonDiverg()
 	print(f'Jensen-Shannon Divergence: {jsd}')
-	
-	nnd = gProt.NND()
 	print(f'Network Node Dispersion NND: {nnd}')
 	
 

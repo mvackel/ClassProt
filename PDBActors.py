@@ -72,7 +72,7 @@ class GetPdbEntryEnded():  # msg from StorePDBGraphActor to Coordinator
 
 
 # ===============   GET PDB ACTOR
-@troupe(max_count=10, idle_count=1)
+@troupe(max_count=15, idle_count=1)
 class GetPDBActor(ActorTypeDispatcher):
 	def receiveMsg_CooGetPDB(self, getPdbMsg: CooGetPDB, sender):
 		self.troupe_work_in_progress = True
@@ -90,18 +90,8 @@ class GetPDBActor(ActorTypeDispatcher):
 		# cria ator para armazenar a entrada no DB:
 		# dbStoreEntry = self.createActor(GraphDBStorePDB)
 		# Armazena no DB os carbonos alfa - sincrono:
-		py2neo.authenticate("localhost:7474", dbUser, dbPwd)
-		#py2neo.authenticate("localhost:7474", 'neo4j', 'pxyon123')
-		numTries = 10
-		while numTries > 0:
-			try:
-				dbGraph = Graph()
-				break
-			except:
-				print(f'-----Err: {pdbEntry} :', sys.exc_info()[0])
-				time.sleep(1)
-				numTries -= 1
-			
+		dbGraph = connectDB(dbUser, dbPwd)
+		
 		#print(f'--dbGraph: {pdbEntry}')
 
 		nNodes = nRels = 0
@@ -208,8 +198,7 @@ class Coordinator(ActorTypeDispatcher):
 			self.send(sender, Ended(-1))
 	
 	def receiveMsg_GetPdbEntryEnded(self, message: GetPdbEntryEnded, sender):
-		print(
-			f'-Coo: rec: StorePdbEntryEnded. nMsg: {message.nMsg}')  # print(f'Coord: 2: Received reply message: {num} : {msg}')
+		print(f'-Coo: rec: StorePdbEntryEnded. nMsg: {message.nMsg}')  # print(f'Coord: 2: Received reply message: {num} : {msg}')
 		if self.started:
 			self.numEntriesProcessed += 1
 			if self.numEntriesProcessed == self.numEntriesToProcess:
@@ -219,40 +208,55 @@ class Coordinator(ActorTypeDispatcher):
 			
 			# def receiveUnrecognizedMessage(self, message, sender):
 			# 	self.send(sender, 'Coord: Received Unrecognized Message')
-
+# --------------------------------------
+# --------------------------------------
 
 def run_example(dbUser: str, dbPwd: str, pdbSymList: list, timeout=10, systembase=None):
-	coordinator: Coordinator = ActorSystem(systembase).createActor(Coordinator)
-	print(f'---- Start: {time.time()-startTime}')
-	msgStart = Start(dbUser, dbPwd)
-	started: CooStarted = ActorSystem().ask(coordinator, msgStart, 0.5)
+	# new pdb symbol list with only new symbols:
+	dbGraph = connectDB(dbUser, dbPwd)
+	nInitNumSym = len(pdbSymList)
+	pdbSymList = [ sym for sym in pdbSymList if not existsNodePDB(dbGraph, sym) ]
+	print(f'     Initial number of PDB symbols (Query): {nInitNumSym}')
+	print(f'     Nuber of new PDB symbols to store:     {len(pdbSymList)}')
 	
-	if started is not None:
-		ended: Ended = ActorSystem().ask(coordinator, Process(pdbSymList), timeout)
-		if ended is not None:
-			print("=== FINISHED OK ===")
-			print(f"=== Numero de simbolos PDB processados: {ended.numSymProcessed}")
-			print("===")
+	if len(pdbSymList) > 0:
+		coordinator: Coordinator = ActorSystem(systembase).createActor(Coordinator)
+		print(f'---- Start: {time.time()-startTime}')
+		msgStart = Start(dbUser, dbPwd)
+		started: CooStarted = ActorSystem().ask(coordinator, msgStart, 0.5)
+		
+		if started is not None:
+			ended: Ended = ActorSystem().ask(coordinator, Process(pdbSymList), timeout)
+			if ended is not None:
+				print("=== FINISHED OK ===")
+				print(f"=== Numero de simbolos PDB processados: {ended.numSymProcessed}")
+				print("===")
+			else:
+				print(f"### Timeout ###. {ended}")
+		
 		else:
-			print(f"### Timeout ###. {ended}")
-	
+			print("### No Start ### : {started}")
+		duration = 	time.time()-startTime
+		print(f'---- End: {duration}')
+		average = duration / len(pdbSymList)
+		print(f'----      average: {average}/entry')
+		
+		ActorSystem(systembase).shutdown()
 	else:
-		print("### No Start ### : {started}")
-	print(f'---- End: {time.time()-startTime}')
-	
-	ActorSystem(systembase).shutdown()
+		print('No pdb symbols to store. Ending.')
+		
 
 
 if __name__ == "__main__":
 	# import sys
-	print('=====TESTE')
+	#print('===== Inicio')
 	
 	# pdbEntriesList = ['1LS6:1' '1Z28:1' '2D06:1' '3QVU:1' '3QVV:1' '3U3J:1' '3U3K:1' '3U3M:1' '3U3O:1' '3U3R:1' '4GRA:1' ]
 	#lstPdbEntries = ['1LS6', '1Z28', '2D06', '3QVU', '3QVV', '3U3J', '3U3K', '3U3M', '3U3O', '3U3R', '4GRA' ]
-	lstPdbEntries = ['1LS6', '1Z28', '2D06', '3QVU', '3QVV', '3U3J', '3U3K', '3U3M', '3U3O', '3U3R', '4GRA', '1LS6', '1Z28', '2D06', '3QVU', '3QVV', '3U3J', '3U3K', '3U3M', '3U3O', '3U3R', '4GRA']
+	lstPdbEntries = ['5O75', '2JKU', '1LS6', '1Z28', '2D06', '3QVU', '3QVV', '3U3J', '3U3K', '3U3M', '3U3O', '3U3R', '4GRA', '1LS6', '1Z28', '2D06', '3QVU', '3QVV', '3U3J', '3U3K', '3U3M', '3U3O', '3U3R', '4GRA']
 	# lstPdbEntries = [ '5O75', '1LS6', '1Z28', '2D06', '3QVU', '3U3J' ]
 	# lstPdbEntries = ['5O75', '1LS6', '5NH5', '1Z28', '5WEA']
-	lstPdbEntries = ['5O75', '1G8P', '2X31', '5EWU']
+	#lstPdbEntries = ['5O75', '1G8P', '2X31', '5EWU']
 	# py2neo.authenticate("localhost:7474", "neo4j", "pxyon123")
 	# dbGraph = Graph()
 	# 'multiprocTCPBase'
