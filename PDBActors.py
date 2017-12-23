@@ -248,6 +248,11 @@ def run_example(dbUser: str, dbPwd: str, pdbSymList: list, timeout=10, systembas
 
 
 if __name__ == "__main__":
+	
+	# ERROR:
+	#     thespian.actors.InvalidActorAddress: ActorAddr-(T|:1900) is not a valid or useable ActorSystem Admin
+	# SOLUTION : KILL python processes using Task Manager
+	
 	# import sys
 	#print('===== Inicio')
 	

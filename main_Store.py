@@ -35,8 +35,8 @@ class DBGraphFromPDB:
 		
 		segsPerEntry = 6  # esperado: 4 segundos por entrada
 		timeout = len(lstPdbEntries) * segsPerEntry
-		run_example(self.dbUser, self.dbPwd, lstPdbEntries, timeout, 'multiprocTCPBase')
-	
+		#run_example(self.dbUser, self.dbPwd, lstPdbEntries, timeout, 'multiprocTCPBase')
+		run_example('neo4j','pxyon123', lstPdbEntries, timeout, 'multiprocTCPBase')
 	
 	def VerifyParms(self, parms):
 		queryFName = dbUser = dbPwd = ''

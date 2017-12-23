@@ -163,6 +163,12 @@ def connectDB(dbUser:str, dbPwd:str, port=7474, host='localhost') -> Graph:
 	if not S_IndexCreated:
 		query = f'CREATE INDEX ON :CAlpha(IdPDB)'
 		dbGraph.run(query)
+		query = f'CREATE INDEX ON :PDB(IdPDB)'
+		dbGraph.run(query)
+		query = f'CREATE INDEX ON :PDB(EC)'
+		dbGraph.run(query)
+		query = f'CREATE INDEX ON :PDB(taxid)'
+		dbGraph.run(query)
 		S_IndexCreated = True
 	
 	return dbGraph
