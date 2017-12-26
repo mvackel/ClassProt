@@ -29,13 +29,28 @@ if __name__ == "__main__":
 	# print(gDodec.single_source_k_path_length(1, 2))
 	# print(gDesargues.single_source_k_path_length(1, 2))
 	
-	print(gDodec.buildLine(1,weight=None))
-	print(gDodec.buildKLine(1,weight=None))
-	print(gDesargues.buildLine(1,weight=None))
-	print(gDesargues.buildKLine(1,weight=None))
-	print('--------------')
-	print(gDodec.buildKLine(1,2,weight=None))
-	print(gDesargues.buildKLine(1,2,weight=None))
+	bConf = False
+	if bConf:
+		print(gDodec.buildLine(1,weight=None))
+		print(gDodec.buildToKLines(1,k=1,weight=None))
+		print(gDesargues.buildLine(1,weight=None))
+		print(gDesargues.buildToKLines(1,k=1,weight=None))
+		print('--------------')
+		print(gDodec.buildToKLines(1,k=2,weight=None))
+		print(gDesargues.buildToKLines(1,k=2,weight=None))
+		print('=================')
+		print(gDodec.buildNodeDistMatricesToK(2, weight=None))
+		print('--------------')
+		print(gDesargues.buildNodeDistMatricesToK(2, weight=None))
+	
+	bPerf = True
+	if bPerf:
+		start = time.time()
+		for i in range(100):
+			gDodec.buildNodeDistMatricesToK(2, weight=None)
+		print(f'Duration: {time.time() - start}')
+	
+
 
 # print('normal:')
 	# start = time.time()

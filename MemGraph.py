@@ -15,14 +15,24 @@ class MemGraph(nx.Graph):
 	_NUM_DSLOTS = 40+1    # number of distance slots (0: 0 to <1A, 1: 1 to <2A, ... 39: 39 to <40A, 40: for >=40 Angstrons
 	
 	def __init__(self, dbGraph:pn.Graph=None, idPdb:str=None):
-		self._JSD = None
-		self._NND = None
+		self._JSD:float = None
+		self._NND:float = None
 		self._distribAvgNodeDist = np.zeros((1, 41))
+		self._lstJSDs:List[float] = []      # list of Jensen-Shanon Divergence float values, for each k-shortest path
+		self._lstNNDs:List[float] = []      # list of Network Node Dispersion float values, for each k-shortest path
+		self._lstDistribAvgNodeDists = []   # list of arrays of Average Node Distances Distribution, for each k-shortest path
 		super(MemGraph, self).__init__()
 		if dbGraph != None and idPdb != None:
 			self.fromGraphDB(dbGraph, idPdb)
 		
 	def fromGraphDB(self, dbGraph:pn.Graph, idPdb:str) -> (bool, 'MemGraph'):
+		'''
+		Build the Memgraph graph from Neo4j database entry.
+		
+		@param dbGraph: py2neo Graph object already instantiated
+		@param idPdb: str: PDB symbol ID 4 letters string
+		@return: boolean: Tuple (bool, MemGraph) True if found any edges, false if PDB symbol not found (no edges)
+		'''
 		res = dbGraph.data(f"""
 				MATCH (c1:CAlpha {{ IdPDB:'{idPdb}' }} )-[rela:NEAR_10A]-(c2)
 				RETURN c1.ResSeq as rs1, c2.ResSeq as rs2, id(rela) as r, rela.Dist as dist
@@ -35,7 +45,9 @@ class MemGraph(nx.Graph):
 		
 		return (len(res) > 0, self)
 	
+	
 	def graphCuttoff(self, cutoffDist:float=0) -> 'MemGraph':
+		# Returns a new MemGraph with filtered edges where Dist <= cutoffDist
 		newG = MemGraph()
 		if cutoffDist > 0:
 			for edge in self.edges(data=True):
@@ -44,60 +56,71 @@ class MemGraph(nx.Graph):
 					newG.add_edge(edge[0], edge[1], Dist=dist)
 		return newG
 	
-	def calcSimilarity(self) -> float:
-		# TODO: IMPLEMENTAR
-		return self.size()/1000
-	
-	def calcSimilarityCuttoff(self, cutoffDist:float=0) -> float:
-		if cutoffDist == 0:
-			sim = self.calcSimilarity()
-		else:
-			mg = self.graphCuttoff(cutoffDist)
-			sim = mg.calcSimilarity()
-		return sim
-	
-	def calcSimilarityVector(self) -> List[float]:
-		aSim = [0,0,0,0]
-		for n,cutoff in enumerate( range(8, 5-1, -1) ):
-			aSim[n] = self.calcSimilarityCuttoff(cutoff)
-		return aSim
-	
 	from itertools import islice
-	def k_shortest_path(self, source, target, k, weight=None):
+	def k_shortest_path(self, source: Node, target: Node, k: int, weight: str = None) -> List[Node]:
 		return next(islice(nx.shortest_simple_paths(self, source, target, weight=weight), k - 1, None))
 	
-	def k_shortest_path_length(self, source, target, k, weight=None):
-		#return len(next(islice(nx.shortest_simple_paths(self, source, target, weight=weight), k - 1, None)))
-		return len( self.k_shortest_path(source, target, k, weight=weight) ) - 1
+	def k_shortest_path_length(self, source: Node, target: Node, k: int, weight: str = None) -> int:
+		# return len(next(islice(nx.shortest_simple_paths(self, source, target, weight=weight), k - 1, None)))
+		return len(self.k_shortest_path(source, target, k, weight=weight)) - 1
 	
-	def single_source_k_path(self, source, k, weight=None ) -> dict:
-		return { target: self.k_shortest_path(source, target, k, weight) for target in self if target != source}
-		
-	def single_source_k_path_length(self, source, k, weight=None ) -> dict:
-		#return { target: self.k_shortest_path_length(source, target, k, weight) for target in self if target != source}
-		return { target: self.k_shortest_path_length(source, target, k, weight) for target in self if target != source}
+	def single_source_k_path(self, source, k, weight=None) -> dict:
+		return {target: self.k_shortest_path(source, target, k, weight) for target in self if target != source}
 	
-	def buildKLine(self, sourceNode: Node, k:int=1, weight='Dist') -> np.array:
-		ssp = self.single_source_k_path_length(sourceNode, k, weight)
+	def single_source_k_path_length(self, source, k, weight=None) -> dict:
+		# return { target: self.k_shortest_path_length(source, target, k, weight) for target in self if target != source}
+		return {target: self.k_shortest_path_length(source, target, k, weight) for target in self if target != source}
+	
+	def toK_shortest_paths(self, source, target, k, weight=None) -> List[List[Node]]:
+		return list(islice(nx.shortest_simple_paths(self, source, target, weight=weight), k))
+	
+	def toK_shortest_paths_length(self, source, target, k, weight=None) -> List[int]:
+		gen = nx.shortest_simple_paths(self, source, target, weight)
+		return list(len(next(gen)) - 1 for _ in range(k))
+	
+	def single_source_toK_paths(self, source, k, weight=None) -> dict:
+		return {target: self.toK_shortest_paths(source, target, k, weight) for target in self if target != source}
+	
+	def single_source_toK_paths_length(self, source, k, weight=None) -> dict:
+		return {target: self.toK_shortest_paths_length(source, target, k, weight) for target in self if
+		        target != source}
+	
+	def buildToKLines(self, sourceNode, k, weight='Dist') -> np.array:
+		dSsp = self.single_source_toK_paths_length(sourceNode, k, weight)
 		numDSlots = MemGraph._NUM_DSLOTS
-		aNodeDists = np.zeros((1, numDSlots))
-		for node in ssp:
-			if sourceNode != node:
-				dist = ssp[node]  # self[sourceNode][node]['Dist']   # dist between sourceNode and node
-				idx = int(dist) if int(dist) < numDSlots else numDSlots - 1
-				aNodeDists[0, idx] += 1
+		aNodeDists = np.zeros((k, numDSlots))
+		for targetNode, lstDists in dSsp.items():
+			if sourceNode != targetNode:
+				for nK in range(k):
+					distK = lstDists[nK]
+					idx = int(distK) if int(distK) < numDSlots else numDSlots - 1
+					aNodeDists[nK, idx] += 1
 		return aNodeDists
 	
-	def buildNodeDistMatrixKByLine(self, k:int=1) -> np.array:
-		# TODO: rewrite for better performance.
-		# 30 times slower than buildNodeDistMatrixByLine(), but necessary for k>=2
-		aNodeDistsMatrix = np.empty((1, MemGraph._NUM_DSLOTS))
-		for n, node in enumerate(self):
+	def buildNodeDistMatricesToK(self, k:int=2, weight='Dist') -> np.array:
+		#TODO: rewrite for better performance.
+		"""
+		@param k: number of k-shortest paths.
+				  Ex.: k=2 will return 2 matrices concatenated vertically (by rows)
+				       each matrix contains the Node Distance distributions for the k-shortest path.
+		@return: a single array containing the k matrices concatenated in axis 0 (rows).
+				 each matrix contains the Node Distance distributions for the k-shortest path.
+		"""
+		numNodes = self.number_of_nodes()
+		#aNodeDistsMatrix = np.empty((k*numNodes, MemGraph._NUM_DSLOTS))
+		# buildToKLines is 30 times slower than buildNodeDistMatrixByLine() that uses
+		# np.single_source_dijkstra_path_length(), but necessary for k>=2
+		aNodeDistsMatrices = []
+		for nm in range(k):
+			aNodeDistsMatrices.append( np.empty((numNodes, MemGraph._NUM_DSLOTS)) )
+		for nNode, node in enumerate(self):
 			aNodeDists = np.zeros((1, MemGraph._NUM_DSLOTS))  # de 0 a 1 Angstrons em [0], etc
-			aNodeDists = self.buildKLine(node, k)
-			#aNodeDists.reshape(1, MemGraph._NUM_DSLOTS)
-			aNodeDistsMatrix = np.concatenate((aNodeDistsMatrix, aNodeDists), axis=0)
-		return aNodeDistsMatrix
+			aNodeDists = self.buildToKLines(node, k, weight)
+			for nK in range(k):
+				aNodeDistsMatrices[nK][nNode] = aNodeDists[nK]
+		
+		return aNodeDistsMatrices
+	
 	
 	def buildLine(self, sourceNode:Node, weight='Dist') -> np.array:
 		ssp = nx.single_source_dijkstra_path_length(self, sourceNode, weight)
@@ -175,12 +198,14 @@ class MemGraph(nx.Graph):
 
 	# Jensen Shannon Divergence
 	# Returns: (JSDiverg, NDD)
-	def JensenShannonDiverg(self) -> (float, float):
+	def JensenShannonDiverg(self, k=2, weight='Dist') -> (List[float], List[float]):
 		if self._JSD is None:
-			# TODO: Verify: / (nNodes - 1) or (nNodes):
+			#TODO: Verify: / (nNodes - 1) or (nNodes):
 			nNodes = self.number_of_nodes()
-			matrix = self.buidNodeDistMatrix() / (nNodes - 1)
-			# the average Node distribution will be used by JensenShannon2Graphs():
+			matrices = self.buildNodeDistMatricesToK(k, weight)
+			for i in range(k):
+				matrices[i] /= (nNodes - 1)
+			# the average Node distributions will be used by JensenShannon2Graphs() and other things:
 			self._distribAvgNodeDist = np.average(matrix, axis=0).reshape(1, 41)
 			(nrows, ncols) = matrix.shape
 			means = np.average(matrix, 0)
