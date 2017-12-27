@@ -1,4 +1,4 @@
-from itertools import islice
+from itertools import islice, repeat
 
 import py2neo as pn
 from py2neo import *
@@ -18,12 +18,16 @@ class MemGraph(nx.Graph):
 		self._JSD:float = None
 		self._NND:float = None
 		self._distribAvgNodeDist = np.zeros((1, 41))
+		self.idPdb = ''
 		self._lstJSDs:List[float] = []      # list of Jensen-Shanon Divergence float values, for each k-shortest path
 		self._lstNNDs:List[float] = []      # list of Network Node Dispersion float values, for each k-shortest path
 		self._lstDistribAvgNodeDists = []   # list of arrays of Average Node Distances Distribution, for each k-shortest path
+		self._lstWeightAvgs:List[float] = []	# list of weights averaged by the number of edges
+		self._lstJSDHomogs:List[float] = []     # list of Homogeneous Jensen-Shanono Divergences
 		super(MemGraph, self).__init__()
 		if dbGraph != None and idPdb != None:
 			self.fromGraphDB(dbGraph, idPdb)
+			self.idPdb = idPdb
 		
 	def fromGraphDB(self, dbGraph:pn.Graph, idPdb:str) -> (bool, 'MemGraph'):
 		'''
@@ -41,8 +45,8 @@ class MemGraph(nx.Graph):
 		for rel in res:
 			#self.add_edge(rel['c1'], rel['c2'], Dist=rel['dist'])
 			self.add_edge(rel['rs1'], rel['rs2'], Dist=rel['dist'])
-
 		
+		self.idPdb = idPdb
 		return (len(res) > 0, self)
 	
 	
@@ -55,6 +59,26 @@ class MemGraph(nx.Graph):
 				if dist <= cutoffDist:
 					newG.add_edge(edge[0], edge[1], Dist=dist)
 		return newG
+	
+	
+	def diameter(self, weight:str='Dist'):
+		if weight is None:
+			diam = nx.diameter(self)
+		else:
+			diam = nx.diameter(self)
+			#spLambda = lambda G, source: nx.single_source_dijkstra_path_length(G, source, weight=weight)
+			#diam = nx.diameter(self, e=nx.eccentricity(self, sp=spLambda))
+		return diam
+	'''
+		# G is some graph
+		e = nx.eccentricity(G, sp=nx.single_source_dijkstra_path_length)
+		d = nx.diameter(G, e)
+
+		# or if you need to specify which edge attribute is the weight
+		spl = lambda G, source : nx.single_source_dijkstra_path_length(G, source, weight='myweight')
+		d = nx.diameter(G, e=nx.eccentricity(G, sp=spl))
+	'''
+	
 	
 	from itertools import islice
 	def k_shortest_path(self, source: Node, target: Node, k: int, weight: str = None) -> List[Node]:
@@ -89,37 +113,44 @@ class MemGraph(nx.Graph):
 		dSsp = self.single_source_toK_paths_length(sourceNode, k, weight)
 		numDSlots = MemGraph._NUM_DSLOTS
 		aNodeDists = np.zeros((k, numDSlots))
+		aLineWeightAvg = np.zeros(k)    # one column for each line average
 		for targetNode, lstDists in dSsp.items():
 			if sourceNode != targetNode:
 				for nK in range(k):
-					distK = lstDists[nK]
+					distK = lstDists[nK] if nK < len(lstDists) else lstDists[-1]
 					idx = int(distK) if int(distK) < numDSlots else numDSlots - 1
 					aNodeDists[nK, idx] += 1
-		return aNodeDists
+					aLineWeightAvg[nK] += distK
+		aLineWeightAvg /= len(dSsp.keys())-1
+		return aNodeDists, aLineWeightAvg
 	
-	def buildNodeDistMatricesToK(self, k:int=2, weight='Dist') -> np.array:
+	def buildNodeDistMatricesToK(self, k:int=2, weight='Dist') -> (List[np.array], List[float]):
 		#TODO: rewrite for better performance.
 		"""
 		@param k: number of k-shortest paths.
 				  Ex.: k=2 will return 2 matrices concatenated vertically (by rows)
 				       each matrix contains the Node Distance distributions for the k-shortest path.
-		@return: a single array containing the k matrices concatenated in axis 0 (rows).
-				 each matrix contains the Node Distance distributions for the k-shortest path.
+		@return: a list of arrays containing the k matrices.
+				 Each matrix contains the Node Distance distributions for the k-shortest path.
 		"""
 		numNodes = self.number_of_nodes()
-		#aNodeDistsMatrix = np.empty((k*numNodes, MemGraph._NUM_DSLOTS))
 		# buildToKLines is 30 times slower than buildNodeDistMatrixByLine() that uses
 		# np.single_source_dijkstra_path_length(), but necessary for k>=2
-		aNodeDistsMatrices = []
+		lstaNodeDistsMatrices = []
+		# construct the list of empty matrices:
 		for nm in range(k):
-			aNodeDistsMatrices.append( np.empty((numNodes, MemGraph._NUM_DSLOTS)) )
+			lstaNodeDistsMatrices.append( np.empty((numNodes, MemGraph._NUM_DSLOTS)) )
+		# populate the empty matrices:
+		lstTotalWeightAvg = list(repeat(0.0, k))
 		for nNode, node in enumerate(self):
-			aNodeDists = np.zeros((1, MemGraph._NUM_DSLOTS))  # de 0 a 1 Angstrons em [0], etc
-			aNodeDists = self.buildToKLines(node, k, weight)
+			#aNodeDists = np.zeros((1, MemGraph._NUM_DSLOTS))  # de 0 a 1 Angstrons em [0], etc
+			aNodeDists, aLineWeightAvg = self.buildToKLines(node, k, weight)
 			for nK in range(k):
-				aNodeDistsMatrices[nK][nNode] = aNodeDists[nK]
+				lstaNodeDistsMatrices[nK][nNode] = aNodeDists[nK]
+				valAvg = aLineWeightAvg[nK]
+				lstTotalWeightAvg[nK] = (lstTotalWeightAvg[nK] + valAvg) / 2.0 if nNode > 0 else valAvg
 		
-		return aNodeDistsMatrices
+		return lstaNodeDistsMatrices, lstTotalWeightAvg
 	
 	
 	def buildLine(self, sourceNode:Node, weight='Dist') -> np.array:
@@ -172,7 +203,7 @@ class MemGraph(nx.Graph):
 	from joblib import Parallel, delayed
 	def buildNodeDistMatrix2(self) -> np.array:    # 22222
 		numNodes = self.number_of_nodes()
-		aNodeDistsMatrix = np.array([])
+		aNodeDistsMatrix = np.empty((1, MemGraph._NUM_DSLOTS))
 		if numNodes > 40:
 			npar = 150
 			# for i in range(0, numNodes, npar):
@@ -182,90 +213,89 @@ class MemGraph(nx.Graph):
 			for i in range(0,numNodes,npar):
 				aLstNodes.append(lstAllNodes[i:i+npar])
 			#print(aLstNodes)
-				
+			
 			#lstaNodeDists = Parallel(n_jobs=10, backend="threading")(delayed(self.buildNLines)(lstNodes) for lstNodes in aLstNodes)
 			lstaNodeDists = Parallel(n_jobs=-1, backend='multiprocessing')(delayed(self.buildNLines)(lstNodes) for lstNodes in aLstNodes)
 			#lstaNodeDists = Parallel(n_jobs=2, backend='multiprocessing', batch_size=100)\
 			#	(delayed(self.buildLine)(node) for node in lstAllNodes)
-			
 			for n, aNodeDists in enumerate(lstaNodeDists):
-				if n == 0:
-					aNodeDistsMatrix = aNodeDists
-				else:
-					aNodeDistsMatrix = np.concatenate((aNodeDistsMatrix, aNodeDists), axis=0)
+				aNodeDistsMatrix = np.concatenate((aNodeDistsMatrix, aNodeDists), axis=0)
 
 		return aNodeDistsMatrix
 
 	# Jensen Shannon Divergence
 	# Returns: (JSDiverg, NDD)
 	def JensenShannonDiverg(self, k=2, weight='Dist') -> (List[float], List[float]):
-		if self._JSD is None:
+		if not self._lstJSDs:
 			#TODO: Verify: / (nNodes - 1) or (nNodes):
+			numDSlots = MemGraph._NUM_DSLOTS
 			nNodes = self.number_of_nodes()
-			matrices = self.buildNodeDistMatricesToK(k, weight)
-			for i in range(k):
-				matrices[i] /= (nNodes - 1)
-			# the average Node distributions will be used by JensenShannon2Graphs() and other things:
-			self._distribAvgNodeDist = np.average(matrix, axis=0).reshape(1, 41)
-			(nrows, ncols) = matrix.shape
-			means = np.average(matrix, 0)
-			JSD = 0.0
-			for nc in range(ncols):
-				col = matrix[:, nc]
-				JSD = JSD + sum(_p * np.math.log(_p / means[nc]) for _p in col if _p != 0)
-			JSD /= nNodes
-			diam = nx.diameter(self)
-			NND = JSD / np.math.log( diam + 1 )
-			self._JSD = JSD
-			self._NND = NND
+			matrices, weightAvgs = self.buildNodeDistMatricesToK(k, weight)
+			self._lstWeightAvgs = weightAvgs
+			diam = self.diameter(weight)
+			lstJSDs = list(repeat(0.0, k))
+			lstNNDs = list(repeat(0.0, k))
+			self._lstDistribAvgNodeDists= list(repeat(0.0, k))
+			for nK in range(k):
+				matrices[nK] /= (nNodes - 1)
+				# the average Node distributions will be used by
+				# JensenShannon2Graphs() and other things:
+				self._lstDistribAvgNodeDists[nK] = np.average(matrices[nK], axis=0).reshape(1, numDSlots)
+				(nrows, ncols) = matrices[nK].shape
+				means = np.average(matrices[nK], 0)
+				JSD = 0.0
+				for nc in range(ncols):
+					col = matrices[nK][:, nc]
+					JSD = JSD + sum(_p * np.math.log(_p / means[nc]) for _p in col if _p != 0.0 and means[nc] != 0)
+				lstJSDs[nK] = np.round(JSD / nNodes, 14)
+				lstNNDs[nK] = np.round(JSD / np.math.log( diam + 1 ), 14)
+			self._lstJSDs = lstJSDs
+			self._lstNNDs = lstNNDs
 		else:
-			JSD = self._JSD
-			NND = self._NND
+			lstJSDs = self._lstJSDs
+			lstNNDs = self._lstNNDs
 
-		return (JSD, NND)
+		return (lstJSDs, lstNNDs)
 
-	def JensenShannonHomogeneous(self) -> (float, float):
-		# if self._JSD_Hom is None:
-		# 	# TODO: Verify: / (nNodes - 1) or (nNodes):
-		# 	nNodes = self.number_of_nodes()
-		# 	numDSlots = MemGraph._NUM_DSLOTS
-		# 	matrix = np.ones((nNodes, numDSlots)) * ( / (nNodes - 1)
-		# 	# the average Node distribution will be used by JensenShannon2Graphs():
-		# 	self._distribAvgNodeDist = np.average(matrix, axis=0).reshape(1, 41)
-		# 	(nrows, ncols) = matrix.shape
-		# 	means = np.average(matrix, 0)
-		# 	JSD = 0.0
-		# 	for nc in range(ncols):
-		# 		col = matrix[:, nc]
-		# 		JSD = JSD + sum(_p * np.math.log(_p / means[nc]) for _p in col if _p != 0)
-		# 	JSD /= nNodes
-		# 	diam = nx.diameter(self)
-		# 	NND = JSD / np.math.log(diam + 1)
-		# 	self._JSD = JSD
-		# 	self._NND = NND
-		# else:
-		# 	JSD = self._JSD
-		# 	NND = self._NND
-		#
-		# return (JSD, NND)
-		pass
+	def JensenShannonHomogeneous(self, k=2, weight='Dist') -> (float, float):
+		if not self._lstJSDHomogs:
+			numDSlots = MemGraph._NUM_DSLOTS
+			diam = self.diameter(weight)
+			for nK in range(k):
+				ugK = self.distribNodeDist(nK+1)    # Already divided... / (self.number_of_nodes() - 1)
+				valDistrib = self._lstWeightAvgs[nK] / (self.number_of_nodes()-1)#diam    # average shortest-path lenght / weighted diameter
+				homogDistrib = np.full((1,numDSlots), valDistrib )
+				ugH = homogDistrib #==== / (self.number_of_nodes() - 1)
+				distrMatrix = np.concatenate((ugK, ugH), axis=0)
+				u_avg = np.average(distrMatrix, axis=0)
+				(nrows, ncols) = distrMatrix.shape
+				JSDu = 0.0
+				for nc in range(ncols):
+					col = distrMatrix[:, nc]
+					JSDu = JSDu + sum(_u * np.math.log(_u / u_avg[nc]) for _u in col if _u != 0)
+				JSDu /= 2.0
+				self._lstJSDHomogs.append(JSDu)
+		return self._lstJSDHomogs
+
 	
 	# Network Node Dispersion
-	def NND(self) -> float:
-		nnd = self._NND
-		if self._NND is None:
-			jsd, nnd = self.JensenShannonDiverg()
+	def NND(self, k=1) -> float:
+		if not self._lstNNDs:
+			self.JensenShannonDiverg()
+		nnd = self._lstNNDs[k] if len(self._lstNNDs) < k else None
 		return nnd
 	
-	def distribNodeDist(self) -> np.ndarray:
-		if not self._distribAvgNodeDist.any():
+	def distribNodeDist(self, k=1) -> np.ndarray:
+		#if not self._distribAvgNodeDist.any():
+		if not self._lstDistribAvgNodeDists:
 			self.JensenShannonDiverg()
-		return self._distribAvgNodeDist
-		
-	def JensenShannon2Graphs(self, other):
+		distrib = self._lstDistribAvgNodeDists[k-1] if k-1 < len(self._lstDistribAvgNodeDists) else None
+		return distrib
+
+	def JensenShannon2Graphs(self, other, k=1):
 		# TODO: Verify: / (nNodes - 1) or (nNodes):
-		ug1 = self.distribNodeDist() / (self.number_of_nodes() - 1)
-		ug2 = other.distribNodeDist() / (other.number_of_nodes() - 1)
+		ug1 = self.distribNodeDist(k) / (self.number_of_nodes() - 1)
+		ug2 = other.distribNodeDist(k) / (other.number_of_nodes() - 1)
 		distrMatrix = np.concatenate((ug1, ug2), axis=0)
 		u_avg = np.average(distrMatrix, axis=0)
 		(nrows, ncols) = distrMatrix.shape
@@ -278,12 +308,60 @@ class MemGraph(nx.Graph):
 	
 	def RavettiDissimilarity(self, other) -> float:
 		# TODO: implement the third term of the equation, using Alpha-centrality
-		jsd1, nnd1 = self.JensenShannonDiverg()
-		jsd2, nnd2 = other.JensenShannonDiverg()
+		ljsd1, lnnd1 = self.JensenShannonDiverg()
+		ljsd2, lnnd2 = other.JensenShannonDiverg()
+		nnd1 = lnnd1[0]
+		nnd2 = lnnd2[0]
 		jsdG1G2 = self.JensenShannon2Graphs(other)
 		D_G1G2 = 0.5 * np.math.sqrt(jsdG1G2 / np.math.log(2)) + \
 				 0.5 * np.math.fabs(np.math.sqrt(nnd1) - np.math.sqrt(nnd2))
 		return D_G1G2
+	
+	def RavettiDissimilarityModifiedV1(self, other) -> float:
+		_, lnnd1 = self.JensenShannonDiverg()
+		_, lnnd2 = other.JensenShannonDiverg()
+		nnd1_k1 = lnnd1[0]
+		nnd2_k1 = lnnd2[0]
+		nnd1_k2 = lnnd1[1]
+		nnd2_k2 = lnnd2[1]
+		jsdG1G2 = self.JensenShannon2Graphs(other)
+		D_G1G2 = 1/3 * np.math.sqrt(jsdG1G2 / np.math.log(2)) + \
+				 1/3 * np.math.fabs(np.math.sqrt(nnd1_k1) - np.math.sqrt(nnd2_k1)) + \
+				 1/3 * np.math.fabs(np.math.sqrt(nnd1_k2) - np.math.sqrt(nnd2_k2))
+		return D_G1G2
+	
+	def RavettiDissimilarityModified(self, other) -> float:
+		_, lnnd1 = self.JensenShannonDiverg()
+		_, lnnd2 = other.JensenShannonDiverg()
+		nnd1_k1 = lnnd1[0]
+		nnd2_k1 = lnnd2[0]
+		nnd1_k2 = lnnd1[1]
+		nnd2_k2 = lnnd2[1]
+		jsdG1G2_k1 = self.JensenShannon2Graphs(other,k=1)
+		jsdG1G2_k2 = self.JensenShannon2Graphs(other,k=2)
+		D_G1G2 = 1 / 4 * np.math.sqrt(jsdG1G2_k1 / np.math.log(2)) + \
+				 1 / 4 * np.math.sqrt(jsdG1G2_k2 / np.math.log(2)) + \
+				 1 / 4 * np.math.fabs(np.math.sqrt(nnd1_k1) - np.math.sqrt(nnd2_k1)) + \
+				 1 / 4 * np.math.fabs(np.math.sqrt(nnd1_k2) - np.math.sqrt(nnd2_k2))
+		return D_G1G2
+	
+	def graphNumber(self, weight='Dist') -> complex:
+		ljsd, lnnd = self.JensenShannonDiverg(weight=weight)
+		jsd_k1 = ljsd[0]
+		jsd_k2 = ljsd[1]
+		nnd_k1 = lnnd[0]
+		nnd_k2 = lnnd[1]
+		ljsdHomog = self.JensenShannonHomogeneous(k=2, weight=weight)
+		jsdHomog_k1 = ljsdHomog[0]
+		jsdHomog_k2 = ljsdHomog[1]
+		term_k1 = 1/4 * np.math.sqrt( jsdHomog_k1 / np.math.log(2) ) + \
+				  1/4 * np.math.sqrt(nnd_k1)
+		term_k2 = 1/4 * np.math.sqrt( jsdHomog_k2 / np.math.log(2) ) + \
+				  1/4 * np.math.sqrt(nnd_k2)
+		return complex(term_k1, term_k2)
+	
+	
+# ===========================================================
 
 import time
 from joblib import Parallel, delayed
@@ -443,5 +521,3 @@ if __name__ == "__main__":
 		#gex.add_nodes_from(range(100,110))
 		#nx.draw(gex)
 		plt.show()
-		
-		

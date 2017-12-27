@@ -43,13 +43,45 @@ if __name__ == "__main__":
 		print('--------------')
 		print(gDesargues.buildNodeDistMatricesToK(2, weight=None))
 	
-	bPerf = True
+	bPerf = False
 	if bPerf:
 		start = time.time()
 		for i in range(100):
 			gDodec.buildNodeDistMatricesToK(2, weight=None)
 		print(f'Duration: {time.time() - start}')
 	
+	bGNumber = False
+	if bGNumber:
+		start = time.time()
+		graphNumberDodec = gDodec.graphNumber(weight=None)
+		print(f'Graph Number Dodec    : {graphNumberDodec}')
+
+		graphNumberDesargues = gDesargues.graphNumber(weight=None)
+		print(f'Graph Number Desargues: {graphNumberDesargues}')
+		print(f'Duration: {(time.time() - start)/2}')
+
+	bGNumberPdb = True
+	if bGNumberPdb:
+		pn.authenticate("localhost:7474", "neo4j", "pxyon123")
+		dbGraph = pn.Graph()
+
+		#lstSym = ['5O75', '2JKU', '1LS6', '1Z28', '2D06', '3QVU', '3QVV', '3U3J', '3U3K', '3U3M', '3U3O', '3U3R', '4GRA', '1LS6', '1Z28', '2D06', '3QVU', '3QVV', '3U3J', '3U3K', '3U3M', '3U3O', '3U3R', '4GRA']
+		#lstSym = ['2D06', '3QVU', '3QVV', '3U3J', '3U3K']
+		lstSym = ['5O75', '3U3K']
+		lstSym = ['3U3K']
+
+		print(f'Len: {len(lstSym)}')
+		start = time.time()
+		lstSerialProt = [MemGraph(dbGraph, sym) for sym in lstSym]
+		lstSerialProt = [_graph.graphCuttoff(6.0) for _graph in lstSerialProt]
+		print(f'Mount duration (serial): {time.time() - start}')
+		start = time.time()
+		for mp in lstSerialProt:
+			print(f'IdPdb: {mp.idPdb}   graphNumber = {mp.graphNumber()}')
+		dur = time.time() - start
+		print(f'Matrix duration (serial): {dur} -- Average: {dur/len(lstSym)} / protein')
+
+
 
 
 # print('normal:')
