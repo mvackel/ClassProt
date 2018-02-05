@@ -3,6 +3,10 @@ import requests
 
 import networkx
 
+#
+#	THIS IS NOT WORKING....
+#
+
 class JsonClient(object):
 	def __init__(self, url='http://127.0.0.1:8090/workspace1'):
 		self.url = url

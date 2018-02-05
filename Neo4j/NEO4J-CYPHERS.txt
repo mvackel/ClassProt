@@ -5,6 +5,14 @@ PARA DELETAR TUDO:
 match (n) detach delete (n)
 ----------------------
 
+tamanho das proteinas:
+------------------------
+match (c:CAlpha) return c.IdPDB, count(c) as size order by size desc
+
+tamanho de uma prot:
+match (c:CAlpha {IdPDB:"3U3K"}) return c.IdPDB, count(c) as size order by size asc
+
+
 CALL dbms.procedures()
 CALL apoc.help("Gephi")
 

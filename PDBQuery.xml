@@ -1,0 +1,87 @@
+<orgPdbCompositeQuery version="1.0">
+    <resultCount>64</resultCount>
+    <queryId>2C4B1936</queryId>
+ <queryRefinement>
+  <queryRefinementLevel>0</queryRefinementLevel>
+  <orgPdbQuery>
+    <version>head</version>
+    <queryType>org.pdb.query.simple.EnzymeClassificationQuery</queryType>
+    <description>Enzyme Classification Search : EC=1.20.*</description>
+    <queryId>FA8EC91C</queryId>
+    <resultCount>64</resultCount>
+    <runtimeStart>2017-12-15T03:18:23Z</runtimeStart>
+    <runtimeMilliseconds>9</runtimeMilliseconds>
+    <Enzyme_Classification>1.20.*</Enzyme_Classification>
+  </orgPdbQuery>
+ </queryRefinement>
+ <queryRefinement>
+  <queryRefinementLevel>1</queryRefinementLevel>
+  <conjunctionType>or</conjunctionType>
+  <orgPdbQuery>
+    <version>head</version>
+    <queryType>org.pdb.query.simple.EnzymeClassificationQuery</queryType>
+    <description>Enzyme Classification Search : EC=2.3.3</description>
+    <queryId>F9A84C22</queryId>
+    <resultCount>170</resultCount>
+    <runtimeStart>2017-12-15T03:18:23Z</runtimeStart>
+    <runtimeMilliseconds>12</runtimeMilliseconds>
+    <Enzyme_Classification>2.3.3</Enzyme_Classification>
+  </orgPdbQuery>
+ </queryRefinement>
+ <queryRefinement>
+  <queryRefinementLevel>2</queryRefinementLevel>
+  <conjunctionType>or</conjunctionType>
+  <orgPdbQuery>
+    <version>head</version>
+    <queryType>org.pdb.query.simple.EnzymeClassificationQuery</queryType>
+    <description>Enzyme Classification Search : EC=3.7.*</description>
+    <queryId>A5AB105D</queryId>
+    <resultCount>66</resultCount>
+    <runtimeStart>2017-12-15T03:18:23Z</runtimeStart>
+    <runtimeMilliseconds>5</runtimeMilliseconds>
+    <Enzyme_Classification>3.7.*</Enzyme_Classification>
+  </orgPdbQuery>
+ </queryRefinement>
+ <queryRefinement>
+  <queryRefinementLevel>3</queryRefinementLevel>
+  <conjunctionType>or</conjunctionType>
+  <orgPdbQuery>
+    <version>head</version>
+    <queryType>org.pdb.query.simple.EnzymeClassificationQuery</queryType>
+    <description>Enzyme Classification Search : EC=4.4.*</description>
+    <queryId>2ADB09A8</queryId>
+    <resultCount>186</resultCount>
+    <runtimeStart>2017-12-15T03:18:23Z</runtimeStart>
+    <runtimeMilliseconds>10</runtimeMilliseconds>
+    <Enzyme_Classification>4.4.*</Enzyme_Classification>
+  </orgPdbQuery>
+ </queryRefinement>
+ <queryRefinement>
+  <queryRefinementLevel>4</queryRefinementLevel>
+  <conjunctionType>or</conjunctionType>
+  <orgPdbQuery>
+    <version>head</version>
+    <queryType>org.pdb.query.simple.EnzymeClassificationQuery</queryType>
+    <description>Enzyme Classification Search : EC=5.5.*</description>
+    <queryId>FF6E476</queryId>
+    <resultCount>72</resultCount>
+    <runtimeStart>2017-12-15T03:18:23Z</runtimeStart>
+    <runtimeMilliseconds>5</runtimeMilliseconds>
+    <Enzyme_Classification>5.5.*</Enzyme_Classification>
+  </orgPdbQuery>
+ </queryRefinement>
+ <queryRefinement>
+  <queryRefinementLevel>5</queryRefinementLevel>
+  <conjunctionType>or</conjunctionType>
+  <orgPdbQuery>
+    <version>head</version>
+    <queryType>org.pdb.query.simple.EnzymeClassificationQuery</queryType>
+    <description>Enzyme Classification Search : EC=6.4.1.*</description>
+    <queryId>E14A012</queryId>
+    <resultCount>130</resultCount>
+    <runtimeStart>2017-12-15T03:18:23Z</runtimeStart>
+    <runtimeMilliseconds>4</runtimeMilliseconds>
+    <Enzyme_Classification>6.4.1.*</Enzyme_Classification>
+  </orgPdbQuery>
+ </queryRefinement>
+</orgPdbCompositeQuery>
